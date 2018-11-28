@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack -d --watch",
     "build": "webpack -p",
-    "start": "webpack-dev-server --host 0.0.0.0",
+    "start": "webpack-dev-server --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
