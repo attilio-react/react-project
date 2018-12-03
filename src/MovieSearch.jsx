@@ -8,7 +8,6 @@ import {SearchByContainer} from './SearchByContainer.jsx';
 class MovieSearch extends React.PureComponent {
   render () {
     return <>
-		  <p><Label text='netflixroulette' /></p>
 		  <p><Label text='FIND YOUR MOVIE' /></p>
 		  <p><InputText inputValue='input' /></p>
 		  <p>
