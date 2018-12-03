@@ -7,6 +7,20 @@ import {SearchResult} from './SearchResult.jsx'
 
 class App extends React.Component {
   render () {
+   const items = [
+         {
+             imgSrc: '/hello.jpg',
+             releaseDate: '2011-10-13',
+             genre: 'drama',
+             title: 'Hello'
+	 },
+	 {
+	     imgSrc: '/hello2.jpg',
+             releaseDate: '2018-10-13',
+             genre: 'action',
+             title: 'Hello2'
+	 }
+   ]
    return <>
             <Label text="netflixroulette" />
             <MovieSearch />
