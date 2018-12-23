@@ -33,8 +33,14 @@ class App extends React.Component {
   }
 
   searchButtonCallback() {
-      const self = this
-      getMovies(response => {
+      const self = this,
+          {searchBy, searchTerm} = this.state
+
+      getMovies({
+          search: searchTerm,
+          searchBy: (searchBy === consts.SEARCH_BY_GENRE ? 'genres' : 'title')
+      },
+      response => {
           self.setState({items: response.data})
       })
   }
