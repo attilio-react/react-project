@@ -81,7 +81,6 @@ class App extends React.Component {
             }}>
             <Label text="netflixroulette" />
             <MovieSearch />
-            <SearchResult />
             <Label text="netflixroulette" />
           </SearchContext.Provider>
   }

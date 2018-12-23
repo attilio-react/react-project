@@ -8,6 +8,7 @@ import {Button} from './common/Button.jsx';
 import {Label} from './common/Label.jsx';
 import {InputText} from './common/InputText.jsx';
 import {SearchByContainer} from './SearchByContainer.jsx';
+import {SearchResult} from './SearchResult.jsx';
 
 class MovieSearch extends React.PureComponent {
   render () {
@@ -24,6 +25,7 @@ class MovieSearch extends React.PureComponent {
 		     &nbsp;
 		     <Button onClick={ctx.searchClickCb} caption='SEARCH' />
 		  </p>
+                  <SearchResult />
                 </>
             )}
             </SearchContext.Consumer>)
