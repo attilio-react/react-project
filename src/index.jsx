@@ -64,7 +64,9 @@ class App extends React.Component {
    const {items, total, searchBy, searchTerm, sortBy} = this.state,
         self = this
 
-   return <SearchContext.Provider
+   return <>
+          <Label text="netflixroulette" />
+          <SearchContext.Provider
             value={{
                 items: items,
                 total: total,
@@ -78,10 +80,10 @@ class App extends React.Component {
                 ratingClickCb: self.sortByRatingCallback.bind(self),
                 sortBy: sortBy
             }}>
-            <Label text="netflixroulette" />
             <MovieSearch />
-            <Label text="netflixroulette" />
           </SearchContext.Provider>
+          <Label text="netflixroulette" />
+          </>
   }
 }
 
