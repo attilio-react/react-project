@@ -1,7 +1,7 @@
 import React from 'react';
 
-import {Label} from './Label.jsx';
-import {Button} from './Button.jsx';
+import {Label} from './common/Label.jsx';
+import {Button} from './common/Button.jsx';
 
 class ResultItem extends React.PureComponent {
   render () {

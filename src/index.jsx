@@ -1,7 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-import {Label} from './Label.jsx'
+import {Label} from './common/Label.jsx'
 import {MovieSearch} from './MovieSearch.jsx'
 import {SearchResult} from './SearchResult.jsx'
 

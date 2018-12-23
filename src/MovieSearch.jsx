@@ -1,8 +1,8 @@
 import React from 'react';
 
-import {Button} from './Button.jsx';
-import {Label} from './Label.jsx';
-import {InputText} from './InputText.jsx';
+import {Button} from './common/Button.jsx';
+import {Label} from './common/Label.jsx';
+import {InputText} from './common/InputText.jsx';
 import {SearchByContainer} from './SearchByContainer.jsx';
 
 class MovieSearch extends React.PureComponent {
