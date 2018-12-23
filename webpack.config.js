@@ -23,7 +23,9 @@ var config = {
     stats: 'errors-only',
     host: process.env.HOST || '0.0.0.0',
     port: process.env.PORT || 8080,
-    open: true
+    watchContentBase: true,
+    contentBase: path.join(__dirname, ''),
+    publicPath: '/inmemory/'
   },
   mode: process.env.BUILD_MODE || 'production'
 };
