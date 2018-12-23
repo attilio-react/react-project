@@ -1,5 +1,9 @@
 import React from 'react';
 
+import {consts} from './Consts.jsx'
+
+import {SearchContext} from './SearchContext.jsx'
+
 import {Button} from './common/Button.jsx';
 import {Label} from './common/Label.jsx';
 import {InputText} from './common/InputText.jsx';
@@ -7,9 +11,11 @@ import {SearchByContainer} from './SearchByContainer.jsx';
 
 class MovieSearch extends React.PureComponent {
   render () {
-    return <>
+    return (<SearchContext.Consumer>
+            {ctx => (
+               <>
 		  <p><Label text='FIND YOUR MOVIE' /></p>
-		  <p><InputText inputValue='input' /></p>
+		  <p><InputText onChange={ctx.searchTermCb} inputValue={ctx.searchTerm} /></p>
 		  <p>
 		     <SearchByContainer />
 		     &nbsp;
@@ -18,8 +24,11 @@ class MovieSearch extends React.PureComponent {
 		     &nbsp;
 		     <Button caption='SEARCH' />
 		  </p>
-           </>;
+                </>
+            )}
+            </SearchContext.Consumer>)
   }
+
 }
 
 

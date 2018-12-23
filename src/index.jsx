@@ -13,11 +13,14 @@ class App extends React.Component {
   constructor(props) {
       super(props)
       this.state = {
-          searchBy: consts.SEARCH_BY_TITLE
+          searchBy: consts.SEARCH_BY_TITLE,
+          searchTerm: ''
       }
   }
 
-  
+  searchTermChangeCallback(evt) {
+      this.setState({searchTerm: evt.target.value});
+  }
 
   titleSearchButtonCallback() {
       this.setState({searchBy: consts.SEARCH_BY_TITLE})
@@ -42,11 +45,13 @@ class App extends React.Component {
              title: 'Hello2'
 	 }],
         self = this,
-        {searchBy} = self.state
+        {searchBy, searchTerm} = self.state
 
    return <SearchContext.Provider
             value={{
                 items: items,
+                searchTerm: searchTerm,
+                searchTermCb: self.searchTermChangeCallback.bind(self),
                 titleClickCb: self.titleSearchButtonCallback.bind(self),
                 genreClickCb: self.genreSearchButtonCallback.bind(self),
                 searchBySelection: searchBy
