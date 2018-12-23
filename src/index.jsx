@@ -4,7 +4,8 @@ import {render} from 'react-dom';
 import {consts} from 'Common/Consts.jsx'
 import {getMovies} from './ApiOperations.jsx'
 
-import {SearchContext} from './search//SearchContext.jsx'
+import {SearchContext} from './search/SearchContext.jsx'
+import {DetailsContext} from './details/DetailsContext.jsx'
 
 import {Label} from 'Common/Label.jsx'
 import {MovieSearch} from './search/MovieSearch.jsx'
@@ -22,7 +23,7 @@ class App extends React.Component {
           total: 0,
           sortBy: consts.SORT_BY_RELEASE_DATE,
 
-          selectedId: 0
+          selectedId: null
       }
   }
 
@@ -69,6 +70,10 @@ class App extends React.Component {
       this.setState({screen: consts.DETAIL_SCREEN, selectedId: id})
   }
 
+  backToSearchButtonCallback() {
+      this.setState({screen: consts.SEARCH_SCREEN, selectedId: null})
+  }
+
   render () {
    const {screen,
           items, total, searchBy, searchTerm, sortBy} = this.state,
@@ -94,7 +99,12 @@ class App extends React.Component {
             <MovieSearch />
           </SearchContext.Provider>
    } else {
-          content = <MovieDetails />
+          content = <DetailsContext.Provider
+            value={{
+                searchClickCb: self.backToSearchButtonCallback.bind(self)
+            }}>
+            <MovieDetails />
+           </DetailsContext.Provider>
    }
  
 
