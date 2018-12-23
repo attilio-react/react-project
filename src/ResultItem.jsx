@@ -20,6 +20,6 @@ class ResultItem extends React.PureComponent {
 }
 
 
-export {SearchByContainer}
+export {ResultItem}
 
 
