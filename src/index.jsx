@@ -2,7 +2,7 @@ import React from 'react';
 import {render} from 'react-dom';
 
 import {consts} from 'Common/Consts.jsx'
-import {getMovies} from './ApiOperations.jsx'
+import {getMovies, getMovie} from './ApiOperations.jsx'
 
 import {SearchContext} from './search/SearchContext.jsx'
 import {DetailsContext} from './details/DetailsContext.jsx'
@@ -23,12 +23,13 @@ class App extends React.Component {
           total: 0,
           sortBy: consts.SORT_BY_RELEASE_DATE,
 
-          selectedId: null
+          selectedMovie: null,
+          sameGenreMovies: []
       }
   }
 
   searchMovies() {
-       const self = this,
+      const self = this,
           {searchBy, searchTerm, sortBy} = this.state
 
       getMovies({
@@ -40,7 +41,22 @@ class App extends React.Component {
       response => {
           self.setState({items: response.data, total: response.total})
       })
- }
+  }
+
+  fetchMovieDetails(id, cb) {
+      const self = this
+
+      getMovie(id,
+      response => {
+          getMovies({searchBy: 'genres', search: response.genres},
+              relatedResponse => {
+                  self.setState({
+                      selectedMovie: response,
+                      sameGenreMovies: relatedResponse.data
+                  }, cb)
+              })
+      })
+  }
 
   searchTermChangeCallback(evt) {
       this.setState({searchTerm: evt.target.value});
@@ -67,16 +83,19 @@ class App extends React.Component {
   }
 
   selectItemCallback(id) {
-      this.setState({screen: consts.DETAIL_SCREEN, selectedId: id})
+      const self = this
+      self.fetchMovieDetails(id, () =>
+          {self.setState({screen: consts.DETAIL_SCREEN})})
   }
 
   backToSearchButtonCallback() {
-      this.setState({screen: consts.SEARCH_SCREEN, selectedId: null})
+      this.setState({screen: consts.SEARCH_SCREEN})
   }
 
   render () {
    const {screen,
-          items, total, searchBy, searchTerm, sortBy} = this.state,
+          items, total, searchBy, searchTerm, sortBy,
+          selectedMovie, sameGenreMovies} = this.state,
         self = this
 
    let content
@@ -101,7 +120,9 @@ class App extends React.Component {
    } else {
           content = <DetailsContext.Provider
             value={{
-                searchClickCb: self.backToSearchButtonCallback.bind(self)
+                searchClickCb: self.backToSearchButtonCallback.bind(self),
+                movie: selectedMovie,
+                relatedMovies: sameGenreMovies
             }}>
             <MovieDetails />
            </DetailsContext.Provider>

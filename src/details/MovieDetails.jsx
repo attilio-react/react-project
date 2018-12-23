@@ -4,6 +4,8 @@ import {DetailsContext} from './DetailsContext.jsx'
 
 import {Button} from 'Common/Button.jsx'
 
+import {MovieData} from './MovieData.jsx'
+
 class MovieDetails extends React.PureComponent {
   render () {
     return (<DetailsContext.Consumer>
@@ -12,6 +14,7 @@ class MovieDetails extends React.PureComponent {
                 &nbsp;
                 &nbsp;
                 <Button caption='Search' onClick={ctx.searchClickCb} />
+                <MovieData />
                 <div></div>
                 </>
             )}

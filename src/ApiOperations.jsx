@@ -11,3 +11,14 @@ export function getMovies(params, cb) {
     });
 }
 
+export function getMovie(id, cb) {
+    const url = new URL('http://react-cdp-api.herokuapp.com/movies/' + id)
+    fetch(url)
+    .then(function(response) {
+          return response.json();
+    })
+    .then(function(json) {
+        cb(json)
+    });
+}
+
