@@ -17,9 +17,25 @@ class App extends React.Component {
           searchBy: consts.SEARCH_BY_TITLE,
           searchTerm: '',
           items: [],
-          total: 0
+          total: 0,
+          sortBy: consts.SORT_BY_RELEASE_DATE
       }
   }
+
+  searchMovies() {
+       const self = this,
+          {searchBy, searchTerm, sortBy} = this.state
+
+      getMovies({
+          search: searchTerm,
+          searchBy: (searchBy === consts.SEARCH_BY_GENRE ? 'genres' : 'title'),
+          sortBy: (sortBy === consts.SORT_BY_RELEASE_DATE ? 'release_date' : 'vote_average'),
+          sortOrder: 'asc'
+      },
+      response => {
+          self.setState({items: response.data, total: response.total})
+      })
+ }
 
   searchTermChangeCallback(evt) {
       this.setState({searchTerm: evt.target.value});
@@ -34,20 +50,19 @@ class App extends React.Component {
   }
 
   searchButtonCallback() {
-      const self = this,
-          {searchBy, searchTerm} = this.state
+      this.searchMovies()
+  }
 
-      getMovies({
-          search: searchTerm,
-          searchBy: (searchBy === consts.SEARCH_BY_GENRE ? 'genres' : 'title')
-      },
-      response => {
-          self.setState({items: response.data, total: response.total})
-      })
+  sortByReleaseDateCallback() {
+      this.setState({sortBy: consts.SORT_BY_RELEASE_DATE}, this.searchMovies.bind(this))
+  }
+    
+  sortByRatingCallback() {
+      this.setState({sortBy: consts.SORT_BY_RATING}, this.searchMovies.bind(this))
   }
 
   render () {
-   const {items, total, searchBy, searchTerm} = this.state,
+   const {items, total, searchBy, searchTerm, sortBy} = this.state,
         self = this
 
    return <SearchContext.Provider
@@ -59,7 +74,10 @@ class App extends React.Component {
                 titleClickCb: self.titleSearchButtonCallback.bind(self),
                 genreClickCb: self.genreSearchButtonCallback.bind(self),
                 searchBySelection: searchBy,
-                searchClickCb: self.searchButtonCallback.bind(self)
+                searchClickCb: self.searchButtonCallback.bind(self),
+                releaseDateClickCb: self.sortByReleaseDateCallback.bind(self),
+                ratingClickCb: self.sortByRatingCallback.bind(self),
+                sortBy: sortBy
             }}>
             <Label text="netflixroulette" />
             <MovieSearch />
