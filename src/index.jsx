@@ -16,7 +16,8 @@ class App extends React.Component {
       this.state = {
           searchBy: consts.SEARCH_BY_TITLE,
           searchTerm: '',
-          items: []
+          items: [],
+          total: 0
       }
   }
 
@@ -41,17 +42,18 @@ class App extends React.Component {
           searchBy: (searchBy === consts.SEARCH_BY_GENRE ? 'genres' : 'title')
       },
       response => {
-          self.setState({items: response.data})
+          self.setState({items: response.data, total: response.total})
       })
   }
 
   render () {
-   const {items, searchBy, searchTerm} = this.state,
+   const {items, total, searchBy, searchTerm} = this.state,
         self = this
 
    return <SearchContext.Provider
             value={{
                 items: items,
+                total: total,
                 searchTerm: searchTerm,
                 searchTermCb: self.searchTermChangeCallback.bind(self),
                 titleClickCb: self.titleSearchButtonCallback.bind(self),
