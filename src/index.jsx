@@ -30,6 +30,10 @@ class App extends React.Component {
       this.setState({searchBy: consts.SEARCH_BY_GENRE})
   }
 
+  searchButtonCallback() {
+      console.log('Search')
+  }
+
   render () {
    const items = [
          {
@@ -54,7 +58,8 @@ class App extends React.Component {
                 searchTermCb: self.searchTermChangeCallback.bind(self),
                 titleClickCb: self.titleSearchButtonCallback.bind(self),
                 genreClickCb: self.genreSearchButtonCallback.bind(self),
-                searchBySelection: searchBy
+                searchBySelection: searchBy,
+                searchClickCb: self.searchButtonCallback.bind(self)
             }}>
             <Label text="netflixroulette" />
             <MovieSearch />

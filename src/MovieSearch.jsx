@@ -22,7 +22,7 @@ class MovieSearch extends React.PureComponent {
 		     &nbsp;
 		     &nbsp;
 		     &nbsp;
-		     <Button caption='SEARCH' />
+		     <Button onClick={ctx.searchClickCb} caption='SEARCH' />
 		  </p>
                 </>
             )}
