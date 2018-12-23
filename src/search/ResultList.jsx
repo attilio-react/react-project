@@ -10,7 +10,7 @@ class ResultList extends React.PureComponent {
         <SearchContext.Consumer>
            {ctx => (
            <div>
-                {ctx.items.map((object, i) => <ResultItem item={object} key={i} />)}
+                {ctx.items.map((object, i) => <ResultItem item={object} clickCallback={ctx.itemClickCb} key={i} />)}
            </div>
            )}
         </SearchContext.Consumer>)

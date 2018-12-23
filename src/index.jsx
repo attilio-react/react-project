@@ -60,6 +60,10 @@ class App extends React.Component {
       this.setState({sortBy: consts.SORT_BY_RATING}, this.searchMovies.bind(this))
   }
 
+  selectItemCallback(id, id2) {
+      console.log('selected item: ' + id)
+  }
+
   render () {
    const {items, total, searchBy, searchTerm, sortBy} = this.state,
         self = this
@@ -78,7 +82,8 @@ class App extends React.Component {
                 searchClickCb: self.searchButtonCallback.bind(self),
                 releaseDateClickCb: self.sortByReleaseDateCallback.bind(self),
                 ratingClickCb: self.sortByRatingCallback.bind(self),
-                sortBy: sortBy
+                sortBy: sortBy,
+                itemClickCb: self.selectItemCallback.bind(self)
             }}>
             <MovieSearch />
           </SearchContext.Provider>
