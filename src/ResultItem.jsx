@@ -7,11 +7,11 @@ class ResultItem extends React.PureComponent {
   render () {
     const {item} = this.props;
     return <div>
-                  <p><img src={item.imgSrc} /></p>
+                  <p><img src={item.poster_path} /></p>
                   <p>
-		     <Label text={item.releaseDate} />
+		     <Label text={item.release_date} />
 		     &nbsp;
-                     <Label text={item.genre} />
+                     <Label text={item.genres.join(', ')} />
 		  </p>
                   <p><Label text={item.title} /></p>
                   

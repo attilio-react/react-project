@@ -2,6 +2,7 @@ import React from 'react';
 import {render} from 'react-dom';
 
 import {consts} from './Consts.jsx'
+import {getMovies} from './ApiOperations.jsx'
 
 import {SearchContext} from './SearchContext.jsx'
 
@@ -14,7 +15,8 @@ class App extends React.Component {
       super(props)
       this.state = {
           searchBy: consts.SEARCH_BY_TITLE,
-          searchTerm: ''
+          searchTerm: '',
+          items: []
       }
   }
 
@@ -31,25 +33,15 @@ class App extends React.Component {
   }
 
   searchButtonCallback() {
-      console.log('Search')
+      const self = this
+      getMovies(response => {
+          self.setState({items: response.data})
+      })
   }
 
   render () {
-   const items = [
-         {
-             imgSrc: '/hello.jpg',
-             releaseDate: '2011-10-13',
-             genre: 'drama',
-             title: 'Hello'
-	 },
-	 {
-	     imgSrc: '/hello2.jpg',
-             releaseDate: '2018-10-13',
-             genre: 'action',
-             title: 'Hello2'
-	 }],
-        self = this,
-        {searchBy, searchTerm} = self.state
+   const {items, searchBy, searchTerm} = this.state,
+        self = this
 
    return <SearchContext.Provider
             value={{
