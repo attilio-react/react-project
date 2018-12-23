@@ -8,16 +8,21 @@ import {SearchContext} from './search//SearchContext.jsx'
 
 import {Label} from 'Common/Label.jsx'
 import {MovieSearch} from './search/MovieSearch.jsx'
+import {MovieDetails} from './details/MovieDetails.jsx'
 
 class App extends React.Component {
   constructor(props) {
       super(props)
       this.state = {
+          screen: consts.SEARCH_SCREEN,
+
           searchBy: consts.SEARCH_BY_TITLE,
           searchTerm: '',
           items: [],
           total: 0,
-          sortBy: consts.SORT_BY_RELEASE_DATE
+          sortBy: consts.SORT_BY_RELEASE_DATE,
+
+          selectedId: 0
       }
   }
 
@@ -60,17 +65,18 @@ class App extends React.Component {
       this.setState({sortBy: consts.SORT_BY_RATING}, this.searchMovies.bind(this))
   }
 
-  selectItemCallback(id, id2) {
-      console.log('selected item: ' + id)
+  selectItemCallback(id) {
+      this.setState({screen: consts.DETAIL_SCREEN, selectedId: id})
   }
 
   render () {
-   const {items, total, searchBy, searchTerm, sortBy} = this.state,
+   const {screen,
+          items, total, searchBy, searchTerm, sortBy} = this.state,
         self = this
 
-   return <>
-          <Label text="netflixroulette" />
-          <SearchContext.Provider
+   let content
+   if (screen === consts.SEARCH_SCREEN) {
+          content = <SearchContext.Provider
             value={{
                 items: items,
                 total: total,
@@ -87,7 +93,15 @@ class App extends React.Component {
             }}>
             <MovieSearch />
           </SearchContext.Provider>
-          <Label text="netflixroulette" />
+   } else {
+          content = <MovieDetails />
+   }
+ 
+
+   return <>
+           <Label text="netflixroulette" />
+           {content} 
+           <Label text="netflixroulette" />
           </>
   }
 }
