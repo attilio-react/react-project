@@ -1,6 +1,8 @@
 import React from 'react';
 import {render} from 'react-dom';
 
+import {SearchContext} from './SearchContext.jsx'
+
 import {Label} from './common/Label.jsx'
 import {MovieSearch} from './MovieSearch.jsx'
 import {SearchResult} from './SearchResult.jsx'
@@ -21,12 +23,12 @@ class App extends React.Component {
              title: 'Hello2'
 	 }
    ]
-   return <>
+   return <SearchContext.Provider value={{items: items}}>
             <Label text="netflixroulette" />
             <MovieSearch />
             <SearchResult />
             <Label text="netflixroulette" />
-          </>
+          </SearchContext.Provider>
   }
 }
 
