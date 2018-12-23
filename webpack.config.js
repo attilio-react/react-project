@@ -10,6 +10,11 @@ var config = {
     path: BUILD_DIR,
     filename: 'bundle.js'
   },
+  resolve: {
+    alias: {
+      Common: path.resolve(__dirname, 'src/common/')
+    }
+  },
   module : {
     rules : [
       {

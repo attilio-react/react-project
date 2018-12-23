@@ -1,14 +1,13 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-import {consts} from './Consts.jsx'
+import {consts} from 'Common/Consts.jsx'
 import {getMovies} from './ApiOperations.jsx'
 
-import {SearchContext} from './SearchContext.jsx'
+import {SearchContext} from './search//SearchContext.jsx'
 
-import {Label} from './common/Label.jsx'
-import {MovieSearch} from './MovieSearch.jsx'
-import {SearchResult} from './SearchResult.jsx'
+import {Label} from 'Common/Label.jsx'
+import {MovieSearch} from './search/MovieSearch.jsx'
 
 class App extends React.Component {
   constructor(props) {

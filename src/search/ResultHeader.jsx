@@ -1,11 +1,11 @@
 import React from 'react';
 
-import {consts} from './Consts.jsx'
+import {consts} from 'Common/Consts.jsx'
 
 import {SearchContext} from './SearchContext.jsx'
 
-import {Button} from './common/Button.jsx'
-import {Label} from './common/Label.jsx'
+import {Button} from 'Common/Button.jsx'
+import {Label} from 'Common/Label.jsx'
 
 class ResultHeader extends React.PureComponent {
   render () {
