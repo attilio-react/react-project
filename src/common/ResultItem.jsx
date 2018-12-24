@@ -8,7 +8,7 @@ class ResultItem extends React.PureComponent {
  render () {
     const {item, clickCallback} = this.props,
           self = this;
-    return <div><a onClick={() => {clickCallback(item.id)}}>
+    return <div style={{border: '1px solid black'}}><a onClick={() => {clickCallback(item.id)}}>
                   <p><img src={item.poster_path} /></p>
                   <p>
 		     <Label text={item.release_date} />
