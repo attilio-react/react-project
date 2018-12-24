@@ -1,11 +1,9 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
-import * as enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
 import renderer from 'react-test-renderer';
-import {Button} from '|common/Button.jsx';
 
-enzyme.configure({adapter: new Adapter()});
+
+import {Button} from '|common/Button.jsx';
 
 describe('Button rendering', () => {
   it('Should render selected', () => {

@@ -47,6 +47,7 @@
     "collectCoverage": true,
     "collectCoverageFrom": [
       "src/**/*.{jsx}"
-    ]
+    ],
+    "setupTestFrameworkScriptFile": "./test/testSetup.jsx"
   }
 }
