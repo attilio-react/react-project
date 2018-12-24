@@ -2,7 +2,7 @@ import React from 'react';
 
 import {SearchContext} from './SearchContext.jsx'
 
-import {ResultItem} from './ResultItem.jsx'
+import {ResultItem} from 'Common/ResultItem.jsx'
 
 class ResultList extends React.PureComponent {
   render () {

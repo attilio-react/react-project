@@ -125,7 +125,8 @@ class App extends React.Component {
                 searchClickCb: self.backToSearchButtonCallback.bind(self),
                 movie: selectedMovie,
                 relatedMovies: sameGenreMovies,
-                relatedGenres: selectedMovieGenres
+                relatedGenres: selectedMovieGenres,
+                itemClickCb: self.selectItemCallback.bind(self)
             }}>
             <MovieDetails />
            </DetailsContext.Provider>

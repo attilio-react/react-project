@@ -2,6 +2,8 @@ import React from 'react';
 
 import {DetailsContext} from './DetailsContext.jsx'
 
+import {ResultItem} from 'Common/ResultItem.jsx'
+
 import {Label} from 'Common/Label.jsx'
 
 class RelatedMovies extends React.PureComponent {
@@ -11,7 +13,7 @@ class RelatedMovies extends React.PureComponent {
                 <div>
                     <Label text={`Films by genre ${ctx.relatedGenres.join(', ')}`} />
                     {
-                        ctx.relatedMovies.map(movie => <div key={movie.id}>{movie.title}</div> )
+                        ctx.relatedMovies.map((movie, i) => <ResultItem item={movie} clickCallback={ctx.itemClickCb} key={i} />)
                     }
                 </div>
             )}
