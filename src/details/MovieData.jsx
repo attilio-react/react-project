@@ -12,7 +12,7 @@ class MovieData extends React.PureComponent {
                     <p><span>{ctx.movie.vote_average}</span></p>
                     <p><span>{ctx.movie.release_date}</span></p>
                     <p><span>{ctx.movie.runtime}</span></p>
-                    <p><span>{ctx.movie.tagline}</span></p>
+                    <p><span>{ctx.movie.overview}</span></p>
                 </div>
             )}
             </DetailsContext.Consumer>)
