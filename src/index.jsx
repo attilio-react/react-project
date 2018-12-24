@@ -4,6 +4,8 @@ import {render} from 'react-dom';
 import {consts} from 'Common/Consts.jsx'
 import {getMovies, getMoviesByGenres, getMovie} from './ApiOperations.jsx'
 
+import {ErrorBoundary} from './ErrorBoundary.jsx'
+
 import {SearchContext} from './search/SearchContext.jsx'
 import {DetailsContext} from './details/DetailsContext.jsx'
 
@@ -133,11 +135,11 @@ class App extends React.Component {
    }
  
 
-   return <>
+   return <ErrorBoundary>
            <Label text="netflixroulette" />
            {content} 
            <Label text="netflixroulette" />
-          </>
+          </ErrorBoundary>
   }
 }
 
