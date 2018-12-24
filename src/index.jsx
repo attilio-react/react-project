@@ -24,6 +24,7 @@ class App extends React.Component {
           sortBy: consts.SORT_BY_RELEASE_DATE,
 
           selectedMovie: null,
+          selectedMovieGenres: [],
           sameGenreMovies: []
       }
   }
@@ -52,7 +53,8 @@ class App extends React.Component {
               relatedResponse => {
                   self.setState({
                       selectedMovie: response,
-                      sameGenreMovies: relatedResponse
+                      sameGenreMovies: relatedResponse,
+                      selectedMovieGenres: response.genres
                   }, cb)
               })
       })
@@ -95,7 +97,7 @@ class App extends React.Component {
   render () {
    const {screen,
           items, total, searchBy, searchTerm, sortBy,
-          selectedMovie, sameGenreMovies} = this.state,
+          selectedMovie, sameGenreMovies, selectedMovieGenres} = this.state,
         self = this
 
    let content
@@ -122,7 +124,8 @@ class App extends React.Component {
             value={{
                 searchClickCb: self.backToSearchButtonCallback.bind(self),
                 movie: selectedMovie,
-                relatedMovies: sameGenreMovies
+                relatedMovies: sameGenreMovies,
+                relatedGenres: selectedMovieGenres
             }}>
             <MovieDetails />
            </DetailsContext.Provider>

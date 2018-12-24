@@ -21,13 +21,13 @@ function getMoviesByGenresImpl(genres, excludeId, accum, cb) {
         searchParams[consts.PARAM_SEARCH_BY] = consts.VALUE_BY_GENRE
         searchParams[consts.PARAM_SEARCH] = genre
         getMovies(searchParams, json => {
-            const newMovies = json.data.filter(movie => movie.id !== excludeId)
+            const newMovies = json.data.filter(movie => movie.id !== excludeId),
+                newGenres = genres.slice(1)
             let newAccum = accum.concat(newMovies),
                 newAccumNoDups = newAccum.filter((item, pos) => {
                     return pos === newAccum.findIndex(elem => elem.id === item.id)
                 })
-            genres.shift()
-            getMoviesByGenresImpl(genres, excludeId, newAccumNoDups, cb)
+            getMoviesByGenresImpl(newGenres, excludeId, newAccumNoDups, cb)
         })
     } else {
         cb(accum)
