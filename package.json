@@ -42,7 +42,8 @@
   "dependencies": {},
   "jest": {
     "moduleNameMapper": {
-      "\\|(.*)$": "<rootDir>/src/$1"
+      "\\|(.*)$": "<rootDir>/src/$1",
+      "^Common/(.*)$": "<rootDir>/src/common/$1"
     },
     "collectCoverage": true,
     "collectCoverageFrom": [
