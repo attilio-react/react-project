@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button rendering Should render not selected 1`] = `
+<input
+  style={
+    Object {
+      "textDecoration": "none",
+    }
+  }
+  type="button"
+/>
+`;
+
+exports[`Button rendering Should render selected 1`] = `
+<input
+  style={
+    Object {
+      "textDecoration": "underline",
+    }
+  }
+  type="button"
+/>
+`;
