@@ -2,7 +2,7 @@ import React from 'react';
 import {render} from 'react-dom';
 
 import {consts} from 'Common/Consts.jsx'
-import {getMovies, getMovie} from './ApiOperations.jsx'
+import {getMovies, getMoviesByGenres, getMovie} from './ApiOperations.jsx'
 
 import {SearchContext} from './search/SearchContext.jsx'
 import {DetailsContext} from './details/DetailsContext.jsx'
@@ -34,9 +34,9 @@ class App extends React.Component {
 
       getMovies({
           search: searchTerm,
-          searchBy: (searchBy === consts.SEARCH_BY_GENRE ? 'genres' : 'title'),
-          sortBy: (sortBy === consts.SORT_BY_RELEASE_DATE ? 'release_date' : 'vote_average'),
-          sortOrder: 'asc'
+          searchBy: (searchBy === consts.SEARCH_BY_GENRE ? consts.VALUE_BY_GENRE : consts.VALUE_BY_TITLE),
+          sortBy: (sortBy === consts.SORT_BY_RELEASE_DATE ? consts.VALUE_BY_RELEASE_DATE : consts.VALUE_BY_VOTE_AVERAGE),
+          sortOrder: consts.VALUE_ASC
       },
       response => {
           self.setState({items: response.data, total: response.total})
@@ -48,11 +48,11 @@ class App extends React.Component {
 
       getMovie(id,
       response => {
-          getMovies({searchBy: 'genres', search: response.genres},
+          getMoviesByGenres(response.genres, id,
               relatedResponse => {
                   self.setState({
                       selectedMovie: response,
-                      sameGenreMovies: relatedResponse.data
+                      sameGenreMovies: relatedResponse
                   }, cb)
               })
       })
