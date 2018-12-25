@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MovieDetails rendering Should render 1`] = `
+Array [
+  "   ",
+  <input
+    style={
+      Object {
+        "textDecoration": "none",
+      }
+    }
+    type="button"
+    value="Search"
+  />,
+  <div>
+    <img
+      src="http://hello.com/poster3.png"
+    />
+    <p>
+      <span>
+        Movie Title3
+      </span>
+    </p>
+    <p>
+      <span>
+        4.3
+      </span>
+    </p>
+    <p>
+      <span>
+        2013-01-01
+      </span>
+    </p>
+    <p>
+      <span>
+        129
+      </span>
+    </p>
+    <p>
+      <span>
+        This is a third movie about ....
+      </span>
+    </p>
+  </div>,
+  <div>
+    <span>
+      Films by genre Adventure, War, Thriller
+    </span>
+    <div
+      style={
+        Object {
+          "border": "1px solid black",
+        }
+      }
+    >
+      <a
+        onClick={[Function]}
+      >
+        <p>
+          <img
+            src="http://hello.com/poster.png"
+          />
+        </p>
+        <p>
+          <span>
+            2011-01-01
+          </span>
+           
+          <span>
+            Horror, Thriller
+          </span>
+        </p>
+        <p>
+          <span>
+            Movie Title
+          </span>
+        </p>
+      </a>
+    </div>
+    <div
+      style={
+        Object {
+          "border": "1px solid black",
+        }
+      }
+    >
+      <a
+        onClick={[Function]}
+      >
+        <p>
+          <img
+            src="http://hello.com/poster2.png"
+          />
+        </p>
+        <p>
+          <span>
+            2012-02-02
+          </span>
+           
+          <span>
+            War, History
+          </span>
+        </p>
+        <p>
+          <span>
+            Another Movie Title
+          </span>
+        </p>
+      </a>
+    </div>
+  </div>,
+]
+`;
