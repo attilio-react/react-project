@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoResult rendering Should render without results 1`] = `
+Array [
+  <span>
+    netflixroulette
+  </span>,
+  <p>
+    <span>
+      FIND YOUR MOVIE
+    </span>
+  </p>,
+  <p>
+    <input
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+  </p>,
+  <p>
+    <span>
+      SEARCH BY
+    </span>
+     
+    <input
+      onClick={[Function]}
+      style={
+        Object {
+          "textDecoration": "underline",
+        }
+      }
+      type="button"
+      value="TITLE"
+    />
+     
+    <input
+      onClick={[Function]}
+      style={
+        Object {
+          "textDecoration": "none",
+        }
+      }
+      type="button"
+      value="GENRE"
+    />
+           
+    <input
+      onClick={[Function]}
+      style={
+        Object {
+          "textDecoration": "none",
+        }
+      }
+      type="button"
+      value="SEARCH"
+    />
+  </p>,
+  <div
+    style={
+      Object {
+        "fontSize": "large",
+      }
+    }
+  >
+    No films found
+  </div>,
+  <span>
+    netflixroulette
+  </span>,
+]
+`;
