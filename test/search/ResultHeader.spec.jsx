@@ -35,4 +35,28 @@ describe('ResultHeader rendering', () => {
 
 });
 
+describe('ResultHeader behaviour', () => {
+  it('Should call callback when sort by release date clicked', () => {
+    const 
+      resultHeader = mount(
+            <SearchContext.Provider value={{...CONTEXT, sortBy: consts.SORT_BY_RATING}}>
+               <ResultHeader />
+            </SearchContext.Provider>),
+      nativeButton = resultHeader.find('input').first();
+    nativeButton.simulate('click');
+    expect(CONTEXT.releaseDateClickCb).toBeCalled()
+  });
+
+  it('Should call callback when sort by rating clicked', () => {
+    const 
+      resultHeader = mount(
+            <SearchContext.Provider value={{...CONTEXT, sortBy: consts.SORT_BY_RATING}}>
+               <ResultHeader />
+            </SearchContext.Provider>),
+      nativeButton = resultHeader.find('input').at(1);
+    nativeButton.simulate('click');
+    expect(CONTEXT.ratingClickCb).toBeCalled()
+  });
+
+});
 
