@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MovieData rendering Should render 1`] = `
+<div>
+  <img
+    src="http://hello.com/poster.png"
+  />
+  <p>
+    <span>
+      Movie Title
+    </span>
+  </p>
+  <p>
+    <span>
+      4.4
+    </span>
+  </p>
+  <p>
+    <span>
+      2011-01-01
+    </span>
+  </p>
+  <p>
+    <span>
+      129
+    </span>
+  </p>
+  <p>
+    <span>
+      This is a movie about ....
+    </span>
+  </p>
+</div>
+`;
