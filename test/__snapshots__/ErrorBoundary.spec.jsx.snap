@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoResult rendering Should render when there are no errors 1`] = `
+<div>
+  Test
+</div>
+`;
+
+exports[`NoResult rendering Should render with errors 1`] = `
+<h1>
+  An unexpected error occurred. Please try refershing the page.
+</h1>
+`;
