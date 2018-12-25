@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchResult rendering Should render with elements 1`] = `
+<div>
+  <div>
+    <span>
+      2 movies found
+    </span>
+           
+    <span>
+      Sort by: 
+    </span>
+     
+    <input
+      style={
+        Object {
+          "textDecoration": "none",
+        }
+      }
+      type="button"
+      value="release date"
+    />
+     
+    <input
+      style={
+        Object {
+          "textDecoration": "underline",
+        }
+      }
+      type="button"
+      value="rating"
+    />
+  </div>
+  <div>
+    <div
+      style={
+        Object {
+          "border": "1px solid black",
+        }
+      }
+    >
+      <a
+        onClick={[Function]}
+      >
+        <p>
+          <img
+            src="http://hello.com/poster.png"
+          />
+        </p>
+        <p>
+          <span>
+            2011-01-01
+          </span>
+           
+          <span>
+            Horror, Thriller
+          </span>
+        </p>
+        <p>
+          <span>
+            Movie Title
+          </span>
+        </p>
+      </a>
+    </div>
+    <div
+      style={
+        Object {
+          "border": "1px solid black",
+        }
+      }
+    >
+      <a
+        onClick={[Function]}
+      >
+        <p>
+          <img
+            src="http://hello.com/poster2.png"
+          />
+        </p>
+        <p>
+          <span>
+            2012-02-02
+          </span>
+           
+          <span>
+            War, History
+          </span>
+        </p>
+        <p>
+          <span>
+            Another Movie Title
+          </span>
+        </p>
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`SearchResult rendering Should render without elements 1`] = `
+<div
+  style={
+    Object {
+      "fontSize": "large",
+    }
+  }
+>
+  No films found
+</div>
+`;
