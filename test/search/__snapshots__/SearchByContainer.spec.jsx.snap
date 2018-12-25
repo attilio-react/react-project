@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchByContainer rendering Should render when search by title 1`] = `
+Array [
+  <span>
+    SEARCH BY
+  </span>,
+  " ",
+  <input
+    onClick={[MockFunction]}
+    style={
+      Object {
+        "textDecoration": "underline",
+      }
+    }
+    type="button"
+    value="TITLE"
+  />,
+  " ",
+  <input
+    onClick={[MockFunction]}
+    style={
+      Object {
+        "textDecoration": "none",
+      }
+    }
+    type="button"
+    value="GENRE"
+  />,
+]
+`;
+
+exports[`SearchByContainer rendering Should render when sort by genre 1`] = `
+Array [
+  <span>
+    SEARCH BY
+  </span>,
+  " ",
+  <input
+    onClick={[MockFunction]}
+    style={
+      Object {
+        "textDecoration": "none",
+      }
+    }
+    type="button"
+    value="TITLE"
+  />,
+  " ",
+  <input
+    onClick={[MockFunction]}
+    style={
+      Object {
+        "textDecoration": "underline",
+      }
+    }
+    type="button"
+    value="GENRE"
+  />,
+]
+`;
