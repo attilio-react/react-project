@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoResult rendering Should render 1`] = `
+<div
+  style={
+    Object {
+      "fontSize": "large",
+    }
+  }
+>
+  No films found
+</div>
+`;
