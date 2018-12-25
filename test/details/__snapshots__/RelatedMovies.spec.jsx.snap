@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RelatedMovies rendering Should render 1`] = `
+<div>
+  <span>
+    Films by genre Adventure, War, Thriller
+  </span>
+  <div
+    style={
+      Object {
+        "border": "1px solid black",
+      }
+    }
+  >
+    <a
+      onClick={[Function]}
+    >
+      <p>
+        <img
+          src="http://hello.com/poster.png"
+        />
+      </p>
+      <p>
+        <span>
+          2011-01-01
+        </span>
+         
+        <span>
+          Horror, Thriller
+        </span>
+      </p>
+      <p>
+        <span>
+          Movie Title
+        </span>
+      </p>
+    </a>
+  </div>
+  <div
+    style={
+      Object {
+        "border": "1px solid black",
+      }
+    }
+  >
+    <a
+      onClick={[Function]}
+    >
+      <p>
+        <img
+          src="http://hello.com/poster2.png"
+        />
+      </p>
+      <p>
+        <span>
+          2012-02-02
+        </span>
+         
+        <span>
+          War, History
+        </span>
+      </p>
+      <p>
+        <span>
+          Another Movie Title
+        </span>
+      </p>
+    </a>
+  </div>
+</div>
+`;
