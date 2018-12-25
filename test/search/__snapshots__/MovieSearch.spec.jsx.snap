@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MovieSearch rendering Should render 1`] = `
+Array [
+  <p>
+    <span>
+      FIND YOUR MOVIE
+    </span>
+  </p>,
+  <p>
+    <input
+      onChange={[MockFunction]}
+      type="text"
+      value="it"
+    />
+  </p>,
+  <p>
+    <span>
+      SEARCH BY
+    </span>
+     
+    <input
+      style={
+        Object {
+          "textDecoration": "none",
+        }
+      }
+      type="button"
+      value="TITLE"
+    />
+     
+    <input
+      style={
+        Object {
+          "textDecoration": "none",
+        }
+      }
+      type="button"
+      value="GENRE"
+    />
+           
+    <input
+      onClick={[MockFunction]}
+      style={
+        Object {
+          "textDecoration": "none",
+        }
+      }
+      type="button"
+      value="SEARCH"
+    />
+  </p>,
+  <div
+    style={
+      Object {
+        "fontSize": "large",
+      }
+    }
+  >
+    No films found
+  </div>,
+]
+`;
