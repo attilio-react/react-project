@@ -29,6 +29,7 @@
     "enzyme": "3.8.0",
     "enzyme-adapter-react-16": "1.7.1",
     "jest": "23.6.0",
+    "jest-fetch-mock": "2.1.0",
     "react": "16.6.3",
     "react-dom": "16.6.3",
     "react-redux": "5.1.1",
@@ -49,6 +50,7 @@
     "collectCoverageFrom": [
       "src/**/*.{jsx}"
     ],
+    "automock": false,
     "setupTestFrameworkScriptFile": "./test/testSetup.jsx"
   }
 }
