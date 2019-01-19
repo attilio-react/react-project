@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NoResult rendering Should render without results 1`] = `
+exports[`Rendering Should render without results 1`] = `
 Array [
   <span>
     netflixroulette

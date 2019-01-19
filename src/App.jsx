@@ -30,7 +30,7 @@ class App extends React.Component {
       }
   }
 
-  searchMovies() {
+  searchMovies(cb) {
       const self = this,
           {searchBy, searchTerm, sortBy} = this.state
 
@@ -41,7 +41,7 @@ class App extends React.Component {
           sortOrder: consts.VALUE_ASC
       },
       response => {
-          self.setState({items: response.data, total: response.total})
+          self.setState({items: response.data, total: response.total}, cb)
       })
   }
 

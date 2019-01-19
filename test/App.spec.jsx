@@ -114,13 +114,16 @@ describe('Actions', () => {
         component = mount(<App />),
         RESPONSE = {"data":[{"id":1,"title":"Title","tagline":"Tagline","vote_average":6.1,"vote_count":1195,"release_date":"2018-02-07","poster_path":"http://path/to/poster.jpg","overview":"OVERVIEW","budget":1,"revenue":2,"genres":["Drama"],"runtime":3}, {"id":2,"title":"Title2","tagline":"Tagline2","vote_average":6.2,"vote_count":1198,"release_date":"2018-02-08","poster_path":"http://path/to/poster2.jpg","overview":"OVERVIEW2","budget":2,"revenue":3,"genres":["Thriller"],"runtime":4}],"total":2,"offset":0,"limit":10}
 
+    fetch.mockResponseOnce(JSON.stringify(RESPONSE))
+
     component.setState({
         searchTerm: 'movie title'
     }, () => {
-        fetch.mockResponseOnce(JSON.stringify(RESPONSE))
-        component.instance().searchMovies()
-        //expect(component.find(ResultItem).length).toBe(2);
-        done()
+        component.instance().searchMovies(() => {
+            component.update()
+            expect(component.find(ResultItem).length).toBe(2);
+            done()
+        })
     })
   });
 })
