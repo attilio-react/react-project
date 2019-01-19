@@ -4,6 +4,7 @@ import renderer from 'react-test-renderer';
 
 
 import {App} from '|App.jsx';
+import {ResultItem} from '|common/ResultItem.jsx';
 
 describe('NoResult rendering', () => {
   it('Should render without results', () => {
@@ -13,7 +14,7 @@ describe('NoResult rendering', () => {
     expect(json).toMatchSnapshot();
   });
 
-  it('Should render with results', () => {
+  it('Should render with results', (done) => {
     const 
         component = mount(<App />)
     component.setState({
@@ -40,6 +41,9 @@ describe('NoResult rendering', () => {
 		genres: ['War', 'History']
 	    }
 	]
+    }, () => {
+        expect(component.find(ResultItem).length).toBe(2);
+        done()
     })
   });
 
