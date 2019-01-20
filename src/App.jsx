@@ -1,5 +1,8 @@
 import React from 'react';
 
+import {createStore} from 'redux'
+import {connect} from 'react-redux'
+
 import {consts} from 'Common/Consts.jsx'
 import {getMovies, getMoviesByGenres, getMovie} from './ApiOperations.jsx'
 
@@ -11,6 +14,12 @@ import {DetailsContext} from './details/DetailsContext.jsx'
 import {Label} from 'Common/Label.jsx'
 import {MovieSearch} from './search/MovieSearch.jsx'
 import {MovieDetails} from './details/MovieDetails.jsx'
+
+import ruletteApp from './redux/Reducers.jsx'
+import {SEARCH_BY} from './redux/ActionTypes.jsx'
+import {searchBy} from './redux/ActionCreators.jsx'
+
+const store = createStore(ruletteApp)
 
 class App extends React.Component {
   constructor(props) {
@@ -65,14 +74,6 @@ class App extends React.Component {
       this.setState({searchTerm: evt.target.value});
   }
 
-  titleSearchButtonCallback() {
-      this.setState({searchBy: consts.SEARCH_BY_TITLE})
-  }
-
-  genreSearchButtonCallback() {
-      this.setState({searchBy: consts.SEARCH_BY_GENRE})
-  }
-
   searchButtonCallback() {
       this.searchMovies()
   }
@@ -97,8 +98,9 @@ class App extends React.Component {
 
   render () {
    const {screen,
-          items, total, searchBy, searchTerm, sortBy,
+          items, total, searchTerm, sortBy,
           selectedMovie, sameGenreMovies, selectedMovieGenres} = this.state,
+        {searchBy, titleSearchButtonCallback, genreSearchButtonCallback} = this.props,
         self = this
 
    let content
@@ -109,8 +111,8 @@ class App extends React.Component {
                 total: total,
                 searchTerm: searchTerm,
                 searchTermCb: self.searchTermChangeCallback.bind(self),
-                titleClickCb: self.titleSearchButtonCallback.bind(self),
-                genreClickCb: self.genreSearchButtonCallback.bind(self),
+                titleClickCb: titleSearchButtonCallback,
+                genreClickCb: genreSearchButtonCallback,
                 searchBySelection: searchBy,
                 searchClickCb: self.searchButtonCallback.bind(self),
                 releaseDateClickCb: self.sortByReleaseDateCallback.bind(self),
@@ -142,4 +144,29 @@ class App extends React.Component {
   }
 }
 
-export {App}
+
+const mapStateToProps = (state, ownProps) => {
+      return {
+                searchBy: state.searchBy  
+             }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+      return {
+          titleSearchButtonCallback: () => {
+              dispatch(searchBy(consts.SEARCH_BY_TITLE))
+          },
+
+          genreSearchButtonCallback: () => {
+              dispatch(searchBy(consts.SEARCH_BY_GENRE))
+          }
+      }
+}
+
+const ConnectedAppComponent = connect(
+      mapStateToProps,
+      mapDispatchToProps
+)(App),
+    ConnectedApp = <ConnectedAppComponent store={store} />
+
+export {ConnectedApp}
