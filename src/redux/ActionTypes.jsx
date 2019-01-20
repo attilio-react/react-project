@@ -1,4 +1,5 @@
 export const
+    SEARCH_TERM = 'SEARCH_TERM',
     SEARCH_BY = 'SEARCH_BY',
 
     GET_MOVIES = 'GET_MOVIES',

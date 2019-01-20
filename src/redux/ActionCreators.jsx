@@ -1,4 +1,4 @@
-import {SEARCH_BY,
+import {SEARCH_BY, SEARCH_TERM,
         GET_MOVIES, GET_MOVIE, GET_MOVIES_BY_GENRES} from './ActionTypes.jsx'
 import {getMovies} from './ApiOperations.jsx'
 
@@ -7,6 +7,15 @@ export function searchBy(by) {
         type: SEARCH_BY,
         payload: {
             by: by
+        }
+    }
+}
+
+export function searchTerm(term) {
+    return {
+        type: SEARCH_TERM,
+        payload: {
+            term: term
         }
     }
 }

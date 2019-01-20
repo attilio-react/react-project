@@ -15,7 +15,8 @@ import {MovieSearch} from './search/MovieSearch.jsx'
 import {MovieDetails} from './details/MovieDetails.jsx'
 
 import {SEARCH_BY} from './redux/ActionTypes.jsx'
-import {searchBy,getMoviesRequest} from './redux/ActionCreators.jsx'
+import {searchBy, searchTerm,
+    getMoviesRequest} from './redux/ActionCreators.jsx'
 
 class AppImpl extends React.Component {
   constructor(props) {
@@ -66,10 +67,6 @@ class AppImpl extends React.Component {
       })
   }
 
-  searchTermChangeCallback(evt) {
-      this.setState({searchTerm: evt.target.value});
-  }
-
   sortByReleaseDateCallback() {
       this.setState({sortBy: consts.SORT_BY_RELEASE_DATE}, this.searchMovies.bind(this))
   }
@@ -90,9 +87,12 @@ class AppImpl extends React.Component {
 
   render () {
    const {screen,
-          searchTerm, sortBy,
+          sortBy,
           selectedMovie, sameGenreMovies, selectedMovieGenres} = this.state,
-        {items, total, searchBy, searchButtonCallback, titleSearchButtonCallback, genreSearchButtonCallback} = this.props,
+        {items, total,
+            searchBy, searchTerm,
+            searchTermChangeCallback,
+            searchButtonCallback, titleSearchButtonCallback, genreSearchButtonCallback} = this.props,
         self = this
 
    let content
@@ -102,11 +102,11 @@ class AppImpl extends React.Component {
                 items: items,
                 total: total,
                 searchTerm: searchTerm,
-                searchTermCb: self.searchTermChangeCallback.bind(self),
+                searchTermCb: searchTermChangeCallback,
                 titleClickCb: titleSearchButtonCallback,
                 genreClickCb: genreSearchButtonCallback,
                 searchBySelection: searchBy,
-                searchClickCb: searchButtonCallback,
+                searchClickCb: () => searchButtonCallback(searchTerm, searchBy),
                 releaseDateClickCb: self.sortByReleaseDateCallback.bind(self),
                 ratingClickCb: self.sortByRatingCallback.bind(self),
                 sortBy: sortBy,
@@ -142,19 +142,25 @@ const mapStateToProps = (state, ownProps) => {
                 items: state.apiReducer.items,
                 total: state.apiReducer.total,
                 searchBy: state.guiReducer.searchBy,
-                searchTerm: 'STAR WARS'
+                searchTerm: state.guiReducer.searchTerm
       }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
       return {
-          searchButtonCallback: () => {
+          searchButtonCallback: (searchTerm, searchBy) => {
+              console.log(searchTerm)
+              console.log(searchBy)
               dispatch(getMoviesRequest({
-                  search: ownProps.searchTerm,
-                  searchBy: ownProps.searchBy,
-                  sortBy: consts.VALUE_BY_RELEASE_DATE,
+                  search: searchTerm,
+                  searchBy: (searchBy === consts.SEARCH_BY_GENRE ? consts.VALUE_BY_GENRE : consts.VALUE_BY_TITLE),
+                  sortBy: consts.VALUE_BY_RELEASE_DATE, // FIXME
                   sortOrder: consts.VALUE_ASC
               }))
+          },
+
+          searchTermChangeCallback: (evt) => {
+              dispatch(searchTerm(evt.target.value))
           },
 
           titleSearchButtonCallback: () => {
