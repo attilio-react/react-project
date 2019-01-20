@@ -1,6 +1,16 @@
-import {SEARCH_BY, SORT_BY, SEARCH_TERM,
+import {GOTO_SCREEN,
+        SEARCH_BY, SORT_BY, SEARCH_TERM,
         GET_MOVIES, GET_MOVIE, GET_MOVIES_BY_GENRES} from './ActionTypes.jsx'
 import {getMovies} from './ApiOperations.jsx'
+
+export function gotoScreen(screen) {
+    return {
+        type: GOTO_SCREEN,
+        payload: {
+            screen: screen
+        }
+    }
+}
 
 export function searchBy(by) {
     return {

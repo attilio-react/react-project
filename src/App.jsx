@@ -15,7 +15,9 @@ import {MovieSearch} from './search/MovieSearch.jsx'
 import {MovieDetails} from './details/MovieDetails.jsx'
 
 import {SEARCH_BY} from './redux/ActionTypes.jsx'
-import {searchBy, sortBy, searchTerm,
+import {
+    gotoScreen,
+    searchBy, sortBy, searchTerm,
     getMoviesRequest} from './redux/ActionCreators.jsx'
 
 class AppImpl extends React.Component {
@@ -52,24 +54,16 @@ class AppImpl extends React.Component {
       })
   }
 
- selectItemCallback(id) {
-      const self = this
-      self.fetchMovieDetails(id, () =>
-          {self.setState({screen: consts.DETAIL_SCREEN})})
-  }
-
-  backToSearchButtonCallback() {
-      this.setState({screen: consts.SEARCH_SCREEN})
-  }
-
-  render () {
-   const {screen,
-          selectedMovie, sameGenreMovies, selectedMovieGenres} = this.state,
-        {items, total,
+ render () {
+   const {
+            screen,
+            items, total,
             searchTerm, searchBy, sortBy,
+            selectedMovie, sameGenreMovies, selectedMovieGenres,
             searchTermChangeCallback,
             searchButtonCallback, titleSearchButtonCallback, genreSearchButtonCallback,
-            sortByReleaseDateCallback, sortByRatingCallback} = this.props,
+            sortByReleaseDateCallback, sortByRatingCallback,
+            selectItemCallback, backToSearchButtonCallback} = this.props,
         self = this
 
    let content
@@ -87,18 +81,18 @@ class AppImpl extends React.Component {
                 releaseDateClickCb: () => sortByReleaseDateCallback(self.props),
                 ratingClickCb: () => sortByRatingCallback (self.props),
                 sortBy: sortBy,
-                itemClickCb: self.selectItemCallback.bind(self)
+                itemClickCb: (id) => selectItemCallback(id)
             }}>
             <MovieSearch />
           </SearchContext.Provider>
    } else {
           content = <DetailsContext.Provider
             value={{
-                searchClickCb: self.backToSearchButtonCallback.bind(self),
+                searchClickCb: backToSearchButtonCallback,
                 movie: selectedMovie,
                 relatedMovies: sameGenreMovies,
                 relatedGenres: selectedMovieGenres,
-                itemClickCb: self.selectItemCallback.bind(self)
+                itemClickCb: (id) => selectItemCallback(id)
             }}>
             <MovieDetails />
            </DetailsContext.Provider>
@@ -116,11 +110,15 @@ class AppImpl extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
       return {
+                screen: state.guiReducer.screen,
                 items: state.apiReducer.items,
                 total: state.apiReducer.total,
                 searchBy: state.guiReducer.searchBy,
                 sortBy: state.guiReducer.sortBy,
-                searchTerm: state.guiReducer.searchTerm
+                searchTerm: state.guiReducer.searchTerm,
+                selectedMovie: state.guiReducer.selectedMovie,
+                sameGenreMovies: state.guiReducer.sameGenreMovies,
+                selectedMovieGenres: state.guiReducer.selectedMovieGenres
       }
 }
 
@@ -162,6 +160,20 @@ const mapDispatchToProps = (dispatch, ownProps) => {
               dispatch(sortBy(consts.SORT_BY_RATING))
               doGetMovies(props, dispatch, {sortBy: consts.SORT_BY_RATING})
           },
+
+          selectItemCallback: (id) => {
+              console.log('selected item: ' + id)
+              dispatch(gotoScreen(consts.DETAIL_SCREEN))
+/*              self.fetchMovieDetails(id, () =>
+                  {self.setState({screen: consts.DETAIL_SCREEN})})
+*/
+          },
+
+          backToSearchButtonCallback: () => {
+              dispatch(gotoScreen(consts.SEARCH_SCREEN))
+//              this.setState({screen: consts.SEARCH_SCREEN})
+          }
+
 
       }
 }

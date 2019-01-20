@@ -2,7 +2,8 @@ import { combineReducers } from 'redux'
 
 import {consts} from 'Common/Consts.jsx'
 
-import {SEARCH_BY, SORT_BY, SEARCH_TERM,
+import {GOTO_SCREEN,
+    SEARCH_BY, SORT_BY, SEARCH_TERM,
     GET_MOVIES, GET_MOVIE, GET_MOVIES_BY_GENRES} from './ActionTypes.jsx'
 
 const initialState = {
@@ -14,7 +15,7 @@ const initialState = {
           total: 0,
           sortBy: consts.SORT_BY_RELEASE_DATE,
 
-          selectedMovie: null,
+          selectedMovie: {},
           selectedMovieGenres: [],
           sameGenreMovies: []
       }
@@ -51,7 +52,12 @@ function apiReducer(state = initialState, action) {
 
 function guiReducer(state = initialState, action) {
     switch (action.type) {
-	case SEARCH_BY:
+        case GOTO_SCREEN:
+            return Object.assign({}, state, {
+                screen: action.payload.screen
+            })
+            break;
+        case SEARCH_BY:
 	    return Object.assign({}, state, {
 		searchBy: action.payload.by
 	    })
