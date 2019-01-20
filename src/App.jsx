@@ -95,12 +95,12 @@ class AppImpl extends React.Component {
                 total: total,
                 searchTerm: searchTerm,
                 searchTermCb: searchTermChangeCallback,
-                titleClickCb: titleSearchButtonCallback,
-                genreClickCb: genreSearchButtonCallback,
+                titleClickCb: () => titleSearchButtonCallback(self.props),
+                genreClickCb: () => genreSearchButtonCallback(self.props),
                 searchBySelection: searchBy,
-                searchClickCb: () => searchButtonCallback(searchTerm, searchBy, sortBy),
-                releaseDateClickCb: sortByReleaseDateCallback,
-                ratingClickCb: sortByRatingCallback,
+                searchClickCb: () => searchButtonCallback(self.props),
+                releaseDateClickCb: () => sortByReleaseDateCallback(self.props),
+                ratingClickCb: () => sortByRatingCallback (self.props),
                 sortBy: sortBy,
                 itemClickCb: self.selectItemCallback.bind(self)
             }}>
@@ -140,34 +140,42 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+      const doGetMovies = (props, dispatch, override) => {
+          const {searchTerm, searchBy, sortBy} = Object.assign({}, props, override)
+          dispatch(getMoviesRequest({
+              search: searchTerm,
+              searchBy: (searchBy === consts.SEARCH_BY_GENRE ? consts.VALUE_BY_GENRE : consts.VALUE_BY_TITLE),
+              sortBy: (sortBy === consts.SORT_BY_RELEASE_DATE ? consts.VALUE_BY_RELEASE_DATE : consts.VALUE_BY_VOTE_AVERAGE),
+              sortOrder: consts.VALUE_ASC
+          }))
+      }
       return {
-          searchButtonCallback: (searchTerm, searchBy, sortBy) => {
-              dispatch(getMoviesRequest({
-                  search: searchTerm,
-                  searchBy: (searchBy === consts.SEARCH_BY_GENRE ? consts.VALUE_BY_GENRE : consts.VALUE_BY_TITLE),
-                  sortBy: (sortBy === consts.SORT_BY_RELEASE_DATE ? consts.VALUE_BY_RELEASE_DATE : consts.VALUE_BY_VOTE_AVERAGE),
-                  sortOrder: consts.VALUE_ASC
-              }))
+          searchButtonCallback: (props) => {
+              doGetMovies(props, dispatch)
           },
 
           searchTermChangeCallback: (evt) => {
               dispatch(searchTerm(evt.target.value))
           },
 
-          titleSearchButtonCallback: () => {
+          titleSearchButtonCallback: (props) => {
               dispatch(searchBy(consts.SEARCH_BY_TITLE))
+              doGetMovies(props, dispatch, {searchBy: consts.SEARCH_BY_TITLE})
           },
 
-          genreSearchButtonCallback: () => {
+          genreSearchButtonCallback: (props) => {
               dispatch(searchBy(consts.SEARCH_BY_GENRE))
+              doGetMovies(props, dispatch, {searchBy: consts.SEARCH_BY_GENRE})
           },
 
-          sortByReleaseDateCallback: () => {
+          sortByReleaseDateCallback: (props) => {
               dispatch(sortBy(consts.SORT_BY_RELEASE_DATE))
+              doGetMovies(props, dispatch, {sortBy: consts.SORT_BY_RELEASE_DATE})
           },
 
-          sortByRatingCallback: () => {
+          sortByRatingCallback: (props) => {
               dispatch(sortBy(consts.SORT_BY_RATING))
+              doGetMovies(props, dispatch, {sortBy: consts.SORT_BY_RATING})
           },
 
       }
