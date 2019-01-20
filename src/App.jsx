@@ -36,21 +36,6 @@ class AppImpl extends React.Component {
       }
   }
 
-  searchMovies(cb) {
-      const self = this,
-          {searchBy, searchTerm, sortBy} = this.state
-
-      getMovies({
-          search: searchTerm,
-          searchBy: (searchBy === consts.SEARCH_BY_GENRE ? consts.VALUE_BY_GENRE : consts.VALUE_BY_TITLE),
-          sortBy: (sortBy === consts.SORT_BY_RELEASE_DATE ? consts.VALUE_BY_RELEASE_DATE : consts.VALUE_BY_VOTE_AVERAGE),
-          sortOrder: consts.VALUE_ASC
-      },
-      response => {
-          self.setState({items: response.data, total: response.total}, cb)
-      })
-  }
-
   fetchMovieDetails(id, cb) {
       const self = this
 
