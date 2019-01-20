@@ -1,3 +1,8 @@
 export const
-    SEARCH_BY = 'SEARCH_BY'
+    SEARCH_BY = 'SEARCH_BY',
+
+    GET_MOVIES = 'GET_MOVIES',
+    GET_MOVIE = 'GET_MOVIE',
+    GET_MOVIES_BY_GENRES = 'GET_MOVIES_BY_GENRES'
+
 

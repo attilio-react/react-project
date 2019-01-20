@@ -1,6 +1,9 @@
+import { combineReducers } from 'redux'
+
 import {consts} from 'Common/Consts.jsx'
 
-import {SEARCH_BY} from './ActionTypes.jsx'
+import {SEARCH_BY,
+    GET_MOVIES, GET_MOVIE, GET_MOVIES_BY_GENRES} from './ActionTypes.jsx'
 
 const initialState = {
           screen: consts.SEARCH_SCREEN,
@@ -16,7 +19,37 @@ const initialState = {
           sameGenreMovies: []
       }
 
-export default function rouletteApp(state = initialState, action) {
+
+
+
+function apiReducer(state = initialState, action) {
+    const {payload, type} = action
+    switch (type) {
+        case GET_MOVIES:
+                let newState =  Object.assign({}, state, {
+                    items: payload.response.data,
+                    total: payload.response.total
+                })
+                return newState
+            break;
+        case GET_MOVIE:
+                return Object.assign({}, state, {
+                    selectedMovie: payload.response,
+                    selectedMovieGenres: payload.response.genres
+                })
+            break;
+        case GET_MOVIES_BY_GENRES:
+                return Object.assign({}, state, {
+                    sameGenreMovies: payload.response
+                })
+            break;
+        default:
+            return state
+            break;
+    }
+}
+
+function guiReducer(state = initialState, action) {
     switch (action.type) {
 	case SEARCH_BY:
 	    return Object.assign({}, state, {
@@ -29,4 +62,9 @@ export default function rouletteApp(state = initialState, action) {
     }
 }
 
+const rouletteApp = combineReducers({
+      guiReducer,
+      apiReducer
+})
 
+export default rouletteApp
