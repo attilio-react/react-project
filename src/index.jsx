@@ -1,7 +1,17 @@
 import React from 'react';
 import {render} from 'react-dom';
+import {Provider} from 'react-redux'
+import {createStore} from 'redux'
 
-import {ConnectedApp} from './App.jsx'
+import ruletteApp from './redux/Reducers.jsx'
 
-render(ConnectedApp, document.getElementById('app'));
+import {App} from './App.jsx'
+
+const store = createStore(ruletteApp)
+
+render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    document.getElementById('app'));
 

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import {createStore} from 'redux'
 import {connect} from 'react-redux'
 
 import {consts} from 'Common/Consts.jsx'
@@ -15,13 +14,10 @@ import {Label} from 'Common/Label.jsx'
 import {MovieSearch} from './search/MovieSearch.jsx'
 import {MovieDetails} from './details/MovieDetails.jsx'
 
-import ruletteApp from './redux/Reducers.jsx'
 import {SEARCH_BY} from './redux/ActionTypes.jsx'
 import {searchBy} from './redux/ActionCreators.jsx'
 
-const store = createStore(ruletteApp)
-
-class App extends React.Component {
+class AppImpl extends React.Component {
   constructor(props) {
       super(props)
       this.state = {
@@ -163,10 +159,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       }
 }
 
-const ConnectedAppComponent = connect(
+const App= connect(
       mapStateToProps,
       mapDispatchToProps
-)(App),
-    ConnectedApp = <ConnectedAppComponent store={store} />
+)(AppImpl)
 
-export {ConnectedApp}
+export {App}
