@@ -1,7 +1,7 @@
 import {GOTO_SCREEN,
         SEARCH_BY, SORT_BY, SEARCH_TERM,
-        GET_MOVIES, GET_MOVIE, GET_MOVIES_BY_GENRES} from './ActionTypes.jsx'
-import {getMovies, getMoviesByGenres, getMovie} from './ApiOperations.jsx'
+        GET_MOVIES, GET_MOVIE_AND_DETAILS} from './ActionTypes.jsx'
+import {getMovies, getMovie, getMoviesByGenres} from './ApiOperations.jsx'
 
 export function gotoScreen(screen) {
     return {
@@ -54,33 +54,21 @@ export function getMoviesResponse(params, response) {
     }
 }
 
-export function getMovieRequest(id) {
+export function getMovieDetailsAndRelatedRequest(id) {
     return dispatch => {
-       return getMovie(id, dispatch, getMovieResponse)
-    }
-}
-
-export function getMovieResponse(id, response) {
-    return {
-        type: GET_MOVIE,
-        payload: {
-            response: response
-        }
-    }
-}
-
-export function getMoviesByGenresRequest(genres, excludeId) {
-    return dispatch => {
-       return getMoviesByGenres(genres, excludeId, dispatch, getMoviesByGenresResponse)
-    }
-}
-
-export function getMoviesByGenresResponse(genres, excludeId, response) {
-    return {
-        type: GET_MOVIES_BY_GENRES,
-        payload: {
-            response: response
-        }
+        return getMovie(id, dispatch, (id, response) => {
+            return dispatch2 => {
+                return getMoviesByGenres(response.genres, id, dispatch2, (genres, excludeId, relatedResponse) => {
+                    return {
+                        type: GET_MOVIE_AND_DETAILS,
+                        payload: {
+                            movie: response,
+                            related: relatedResponse
+                        }
+                    }
+                })
+            }
+        })
     }
 }
 

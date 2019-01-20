@@ -4,7 +4,7 @@ import {consts} from 'Common/Consts.jsx'
 
 import {GOTO_SCREEN,
     SEARCH_BY, SORT_BY, SEARCH_TERM,
-    GET_MOVIES, GET_MOVIE, GET_MOVIES_BY_GENRES} from './ActionTypes.jsx'
+    GET_MOVIES, GET_MOVIE_AND_DETAILS} from './ActionTypes.jsx'
 
 const initialState = {
           screen: consts.SEARCH_SCREEN,
@@ -32,18 +32,14 @@ function apiReducer(state = initialState, action) {
                     total: payload.response.total
                 })
             break;
-        case GET_MOVIE:
+        case GET_MOVIE_AND_DETAILS:
                 return Object.assign({}, state, {
-                    selectedMovie: payload.response,
-                    selectedMovieGenres: payload.response.genres
+                    selectedMovie: payload.movie,
+                    selectedMovieGenres: payload.movie.genres,
+                    sameGenreMovies: payload.related
                 })
             break;
-        case GET_MOVIES_BY_GENRES:
-                return Object.assign({}, state, {
-                    sameGenreMovies: payload.response
-                })
-            break;
-        default:
+       default:
             return state
             break;
     }

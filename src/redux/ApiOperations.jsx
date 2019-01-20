@@ -1,6 +1,7 @@
 import {consts} from 'Common/Consts.jsx'
 
-const BASE_URL = 'http://react-cdp-api.herokuapp.com/movies'
+const BASE_URL = 'http://react-cdp-api.herokuapp.com/movies',
+    NO_DISPATCH = null
 
 export function getMovies(params, dispatch, cb) {
     const url = new URL(BASE_URL)
@@ -10,7 +11,11 @@ export function getMovies(params, dispatch, cb) {
           return response.json();
     })
     .then(function(json) {
-        dispatch(cb(params, json))
+        if (dispatch === NO_DISPATCH) {
+            cb(json)
+        } else {
+            dispatch(cb(params, json))
+        }
     });
 }
 
@@ -20,7 +25,7 @@ function getMoviesByGenresImpl(genres, excludeId, accum, dispatch, cb) {
         let searchParams = {}
         searchParams[consts.PARAM_SEARCH_BY] = consts.VALUE_BY_GENRE
         searchParams[consts.PARAM_SEARCH] = genre
-        getMovies(searchParams, json => {
+        getMovies(searchParams, NO_DISPATCH, json => {
             const newMovies = json.data.filter(movie => movie.id !== excludeId),
                 newGenres = genres.slice(1)
             let newAccum = accum.concat(newMovies),
