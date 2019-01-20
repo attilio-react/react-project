@@ -1,6 +1,7 @@
 export const
     SEARCH_TERM = 'SEARCH_TERM',
     SEARCH_BY = 'SEARCH_BY',
+    SORT_BY = 'SORT_BY',
 
     GET_MOVIES = 'GET_MOVIES',
     GET_MOVIE = 'GET_MOVIE',

@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 
 import {consts} from 'Common/Consts.jsx'
 
-import {SEARCH_BY, SEARCH_TERM,
+import {SEARCH_BY, SORT_BY, SEARCH_TERM,
     GET_MOVIES, GET_MOVIE, GET_MOVIES_BY_GENRES} from './ActionTypes.jsx'
 
 const initialState = {
@@ -56,7 +56,12 @@ function guiReducer(state = initialState, action) {
 		searchBy: action.payload.by
 	    })
 	    break;
-	case SEARCH_TERM:
+	case SORT_BY:
+	    return Object.assign({}, state, {
+		sortBy: action.payload.by
+	    })
+	    break;
+        case SEARCH_TERM:
 	    return Object.assign({}, state, {
 		searchTerm: action.payload.term
 	    })

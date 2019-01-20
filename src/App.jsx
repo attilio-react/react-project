@@ -15,7 +15,7 @@ import {MovieSearch} from './search/MovieSearch.jsx'
 import {MovieDetails} from './details/MovieDetails.jsx'
 
 import {SEARCH_BY} from './redux/ActionTypes.jsx'
-import {searchBy, searchTerm,
+import {searchBy, sortBy, searchTerm,
     getMoviesRequest} from './redux/ActionCreators.jsx'
 
 class AppImpl extends React.Component {
@@ -67,15 +67,7 @@ class AppImpl extends React.Component {
       })
   }
 
-  sortByReleaseDateCallback() {
-      this.setState({sortBy: consts.SORT_BY_RELEASE_DATE}, this.searchMovies.bind(this))
-  }
-    
-  sortByRatingCallback() {
-      this.setState({sortBy: consts.SORT_BY_RATING}, this.searchMovies.bind(this))
-  }
-
-  selectItemCallback(id) {
+ selectItemCallback(id) {
       const self = this
       self.fetchMovieDetails(id, () =>
           {self.setState({screen: consts.DETAIL_SCREEN})})
@@ -87,12 +79,12 @@ class AppImpl extends React.Component {
 
   render () {
    const {screen,
-          sortBy,
           selectedMovie, sameGenreMovies, selectedMovieGenres} = this.state,
         {items, total,
-            searchBy, searchTerm,
+            searchTerm, searchBy, sortBy,
             searchTermChangeCallback,
-            searchButtonCallback, titleSearchButtonCallback, genreSearchButtonCallback} = this.props,
+            searchButtonCallback, titleSearchButtonCallback, genreSearchButtonCallback,
+            sortByReleaseDateCallback, sortByRatingCallback} = this.props,
         self = this
 
    let content
@@ -106,9 +98,9 @@ class AppImpl extends React.Component {
                 titleClickCb: titleSearchButtonCallback,
                 genreClickCb: genreSearchButtonCallback,
                 searchBySelection: searchBy,
-                searchClickCb: () => searchButtonCallback(searchTerm, searchBy),
-                releaseDateClickCb: self.sortByReleaseDateCallback.bind(self),
-                ratingClickCb: self.sortByRatingCallback.bind(self),
+                searchClickCb: () => searchButtonCallback(searchTerm, searchBy, sortBy),
+                releaseDateClickCb: sortByReleaseDateCallback,
+                ratingClickCb: sortByRatingCallback,
                 sortBy: sortBy,
                 itemClickCb: self.selectItemCallback.bind(self)
             }}>
@@ -142,19 +134,18 @@ const mapStateToProps = (state, ownProps) => {
                 items: state.apiReducer.items,
                 total: state.apiReducer.total,
                 searchBy: state.guiReducer.searchBy,
+                sortBy: state.guiReducer.sortBy,
                 searchTerm: state.guiReducer.searchTerm
       }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
       return {
-          searchButtonCallback: (searchTerm, searchBy) => {
-              console.log(searchTerm)
-              console.log(searchBy)
+          searchButtonCallback: (searchTerm, searchBy, sortBy) => {
               dispatch(getMoviesRequest({
                   search: searchTerm,
                   searchBy: (searchBy === consts.SEARCH_BY_GENRE ? consts.VALUE_BY_GENRE : consts.VALUE_BY_TITLE),
-                  sortBy: consts.VALUE_BY_RELEASE_DATE, // FIXME
+                  sortBy: (sortBy === consts.SORT_BY_RELEASE_DATE ? consts.VALUE_BY_RELEASE_DATE : consts.VALUE_BY_VOTE_AVERAGE),
                   sortOrder: consts.VALUE_ASC
               }))
           },
@@ -169,7 +160,16 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
           genreSearchButtonCallback: () => {
               dispatch(searchBy(consts.SEARCH_BY_GENRE))
-          }
+          },
+
+          sortByReleaseDateCallback: () => {
+              dispatch(sortBy(consts.SORT_BY_RELEASE_DATE))
+          },
+
+          sortByRatingCallback: () => {
+              dispatch(sortBy(consts.SORT_BY_RATING))
+          },
+
       }
 }
 
