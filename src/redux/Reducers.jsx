@@ -23,7 +23,7 @@ const initialState = {
 
 
 
-function apiReducer(state = initialState, action) {
+export function apiReducer(state = initialState, action) {
     const {payload, type} = action
     switch (type) {
         case GET_MOVIES:
@@ -45,7 +45,7 @@ function apiReducer(state = initialState, action) {
     }
 }
 
-function guiReducer(state = initialState, action) {
+export function guiReducer(state = initialState, action) {
     switch (action.type) {
         case GOTO_SCREEN:
             return Object.assign({}, state, {
