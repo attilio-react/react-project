@@ -3,7 +3,6 @@ import React from 'react';
 import {connect} from 'react-redux'
 
 import {consts} from 'Common/Consts.jsx'
-import {getMovies, getMoviesByGenres, getMovie} from './ApiOperations.jsx'
 
 import {ErrorBoundary} from './ErrorBoundary.jsx'
 

@@ -19,7 +19,7 @@ export function getMovies(params, dispatch, cb) {
     });
 }
 
-function getMoviesByGenresImpl(genres, excludeId, accum, dispatch, cb) {
+function getMoviesByGenresImpl(origGenres, genres, excludeId, accum, dispatch, cb) {
     if (genres && genres.length > 0) {
         const genre = genres[0]
         let searchParams = {}
@@ -32,15 +32,15 @@ function getMoviesByGenresImpl(genres, excludeId, accum, dispatch, cb) {
                 newAccumNoDups = newAccum.filter((item, pos) => {
                     return pos === newAccum.findIndex(elem => elem.id === item.id)
                 })
-            getMoviesByGenresImpl(newGenres, excludeId, newAccumNoDups, dispatch, cb)
+            getMoviesByGenresImpl(origGenres, newGenres, excludeId, newAccumNoDups, dispatch, cb)
         })
     } else {
-        dispatch(cb(genres, excludeId, accum))
+        dispatch(cb(origGenres, excludeId, accum))
     }
 }
 
 export function getMoviesByGenres(genres, excludeId, dispatch, cb) {
-    getMoviesByGenresImpl(genres, excludeId, [], dispatch, cb)
+    getMoviesByGenresImpl(genres, genres, excludeId, [], dispatch, cb)
 }
 
 export function getMovie(id, dispatch, cb) {
