@@ -18,7 +18,7 @@ import {SEARCH_BY} from './redux/ActionTypes.jsx'
 import {
     gotoScreen,
     searchBy, sortBy, searchTerm,
-    getMoviesRequest} from './redux/ActionCreators.jsx'
+    getMoviesRequest, getMoviesByGenresRequest, getMovieRequest} from './redux/ActionCreators.jsx'
 
 class AppImpl extends React.Component {
   constructor(props) {
@@ -116,9 +116,9 @@ const mapStateToProps = (state, ownProps) => {
                 searchBy: state.guiReducer.searchBy,
                 sortBy: state.guiReducer.sortBy,
                 searchTerm: state.guiReducer.searchTerm,
-                selectedMovie: state.guiReducer.selectedMovie,
+                selectedMovie: state.apiReducer.selectedMovie,
                 sameGenreMovies: state.guiReducer.sameGenreMovies,
-                selectedMovieGenres: state.guiReducer.selectedMovieGenres
+                selectedMovieGenres: state.apiReducer.selectedMovieGenres
       }
 }
 
@@ -164,6 +164,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           selectItemCallback: (id) => {
               console.log('selected item: ' + id)
               dispatch(gotoScreen(consts.DETAIL_SCREEN))
+              dispatch(getMovieRequest(id))
+
 /*              self.fetchMovieDetails(id, () =>
                   {self.setState({screen: consts.DETAIL_SCREEN})})
 */
@@ -171,7 +173,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
           backToSearchButtonCallback: () => {
               dispatch(gotoScreen(consts.SEARCH_SCREEN))
-//              this.setState({screen: consts.SEARCH_SCREEN})
           }
 
 

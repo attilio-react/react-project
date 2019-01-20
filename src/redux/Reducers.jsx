@@ -27,11 +27,10 @@ function apiReducer(state = initialState, action) {
     const {payload, type} = action
     switch (type) {
         case GET_MOVIES:
-                let newState =  Object.assign({}, state, {
+                return Object.assign({}, state, {
                     items: payload.response.data,
                     total: payload.response.total
                 })
-                return newState
             break;
         case GET_MOVIE:
                 return Object.assign({}, state, {

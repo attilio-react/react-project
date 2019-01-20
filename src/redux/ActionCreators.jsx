@@ -1,7 +1,7 @@
 import {GOTO_SCREEN,
         SEARCH_BY, SORT_BY, SEARCH_TERM,
         GET_MOVIES, GET_MOVIE, GET_MOVIES_BY_GENRES} from './ActionTypes.jsx'
-import {getMovies} from './ApiOperations.jsx'
+import {getMovies, getMoviesByGenres, getMovie} from './ApiOperations.jsx'
 
 export function gotoScreen(screen) {
     return {
@@ -54,7 +54,13 @@ export function getMoviesResponse(params, response) {
     }
 }
 
-export function getMovieResponse(response) {
+export function getMovieRequest(id) {
+    return dispatch => {
+       return getMovie(id, dispatch, getMovieResponse)
+    }
+}
+
+export function getMovieResponse(id, response) {
     return {
         type: GET_MOVIE,
         payload: {
@@ -63,8 +69,13 @@ export function getMovieResponse(response) {
     }
 }
 
+export function getMoviesByGenresRequest(genres, excludeId) {
+    return dispatch => {
+       return getMoviesByGenres(genres, excludeId, dispatch, getMoviesByGenresResponse)
+    }
+}
 
-export function getMoviesByGenresResponse(response) {
+export function getMoviesByGenresResponse(genres, excludeId, response) {
     return {
         type: GET_MOVIES_BY_GENRES,
         payload: {
