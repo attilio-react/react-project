@@ -2,10 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux'
 
 import {consts} from 'Common/Consts.jsx'
+import {paths} from 'Common/Paths.jsx'
 
 import {SearchContext} from './SearchContext.jsx'
 
-import {Button} from 'Common/Button.jsx';
+import {LinkButton} from 'Common/LinkButton.jsx';
 import {Label} from 'Common/Label.jsx';
 import {InputText} from 'Common/InputText.jsx';
 import {SearchByContainer} from './SearchByContainer.jsx';
@@ -16,6 +17,34 @@ import {
     getMoviesRequest} from 'Redux/ActionCreators.jsx'
 
 class MovieSearchImpl extends React.PureComponent {
+
+  doesSearchTermExist(term) {
+    return (term !== null && term !== undefined && term.trim() !== '')
+  }
+
+  startSearch(term) {
+    const {searchButtonCallback, searchTermChangeCallback} = this.props,
+          finalProps = Object.assign({}, this.props, {searchTerm: term}),
+          evt = {target: {value: term}}
+    searchButtonCallback(finalProps)
+    searchTermChangeCallback(evt)
+  }
+
+  componentWillMount() {
+    const {searchButtonCallback, match: {params: {term}}} = this.props
+    if (this.doesSearchTermExist(term)) {
+    	this.startSearch(term)
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+     const {searchButtonCallback, match: {params: {term}}} = this.props,
+          {match: {params: {term: newTerm}}} = nextProps
+     if (term !== newTerm && this.doesSearchTermExist(newTerm)) {
+    	 this.startSearch(newTerm)
+     }
+  }
+
   render () {
     const {
             items, total,
@@ -47,7 +76,7 @@ class MovieSearchImpl extends React.PureComponent {
 		     &nbsp;
 		     &nbsp;
 		     &nbsp;
-		     <Button onClick={() => searchButtonCallback(self.props)} caption='SEARCH' />
+		     <LinkButton caption='SEARCH' to={paths.SEARCH_PATH + searchTerm} />
 		  </p>
                   <SearchResult />
                 </>
@@ -83,6 +112,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           },
 
           searchTermChangeCallback: (evt) => {
+              console.log(evt)
               dispatch(searchTerm(evt.target.value))
           },
 
