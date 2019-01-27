@@ -21,7 +21,7 @@ class App extends React.Component {
                 <Switch>
                     <Route path={paths.ROOT_PATH} exact component={MovieSearch} />
                     <Route path={paths.SEARCH_PATH} component={MovieSearch} />
-                    <Route path={paths.DETAILS_PATH} component={MovieDetails} />
+                    <Route path={paths.DETAILS_PATH_PARAMS} component={MovieDetails} />
                     <Route path={paths.UNKNOWN_PATH} component={NotFound} />
                 </Switch>
 
