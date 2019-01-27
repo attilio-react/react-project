@@ -1,8 +1,9 @@
 import React from 'react';
 
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import {HashRouter as Router, Route, Link} from "react-router-dom";
 
 import {connect} from 'react-redux'
+import * as qs from 'query-string';
 
 import {consts} from 'Common/Consts.jsx'
 
@@ -46,7 +47,7 @@ class AppImpl extends React.Component {
   }
 
  render () {
-   const {
+    const {
             screen,
             items, total,
             searchTerm, searchBy, sortBy,
@@ -55,34 +56,9 @@ class AppImpl extends React.Component {
             searchButtonCallback, titleSearchButtonCallback, genreSearchButtonCallback,
             sortByReleaseDateCallback, sortByRatingCallback,
             selectItemCallback, backToSearchButtonCallback} = this.props,
-	self = this,
-	SearchScreen = () => <SearchContext.Provider
-	 value={{
-		 items: items,
-			 total: total,
-			 searchTerm: searchTerm,
-			 searchTermCb: searchTermChangeCallback,
-			 titleClickCb: () => titleSearchButtonCallback(self.props),
-			 genreClickCb: () => genreSearchButtonCallback(self.props),
-			 searchBySelection: searchBy,
-			 searchClickCb: () => searchButtonCallback(self.props),
-			 releaseDateClickCb: () => sortByReleaseDateCallback(self.props),
-			 ratingClickCb: () => sortByRatingCallback (self.props),
-			 sortBy: sortBy,
-			 itemClickCb: (id) => selectItemCallback(id)
-	 }}>
-	 <MovieSearch />
-	 </SearchContext.Provider>,
-	DetailsScreen = () => <DetailsContext.Provider
-	 value={{
-		 searchClickCb: backToSearchButtonCallback,
-			 movie: selectedMovie,
-			 relatedMovies: sameGenreMovies,
-			 relatedGenres: selectedMovieGenres,
-			 itemClickCb: (id) => selectItemCallback(id)
-	 }}>
-	 <MovieDetails />
-	 </DetailsContext.Provider>
+	self = this
+
+   console.log('App.render')
 
    return   <Router>
     <div>
@@ -101,8 +77,35 @@ class AppImpl extends React.Component {
       </nav>
 
       <Route path="/" exact component={Index} />
-      <Route path="/search/" component={SearchScreen} />
-      <Route path="/details/" component={DetailsScreen} />
+      <Route path="/search/" component={() => <SearchContext.Provider
+	 value={{
+		 items: items,
+			 total: total,
+			 searchTerm: searchTerm,
+			 searchTermCb: searchTermChangeCallback,
+			 titleClickCb: () => titleSearchButtonCallback(self.props),
+			 genreClickCb: () => genreSearchButtonCallback(self.props),
+			 searchBySelection: searchBy,
+			 searchClickCb: () => searchButtonCallback(self.props),
+			 releaseDateClickCb: () => sortByReleaseDateCallback(self.props),
+			 ratingClickCb: () => sortByRatingCallback (self.props),
+			 sortBy: sortBy,
+			 itemClickCb: (id) => selectItemCallback(id)
+	 }}>
+	 <MovieSearch />
+	 </SearchContext.Provider>} />
+      <Route path="/details/:id" component={(props) => <DetailsContext.Provider
+	 value={{
+		         searchClickCb: backToSearchButtonCallback,
+			 movie: selectedMovie,
+			 relatedMovies: sameGenreMovies,
+			 relatedGenres: selectedMovieGenres,
+			 itemClickCb: (id) => selectItemCallback(id),
+                         ...props
+	 }}>
+	 <MovieDetails fetchItemDetails={id => selectItemCallback(id)} {...props} />
+	 </DetailsContext.Provider>
+      } />
 
       <ErrorBoundary>
 	 <Label text="netflixroulette" />
@@ -168,7 +171,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           },
 
           selectItemCallback: (id) => {
-              dispatch(gotoScreen(consts.DETAIL_SCREEN))
+//              dispatch(gotoScreen(consts.DETAIL_SCREEN))
               dispatch(getMovieDetailsAndRelatedRequest(id))
           },
 

@@ -30,6 +30,7 @@
     "enzyme-adapter-react-16": "1.7.1",
     "jest": "23.6.0",
     "jest-fetch-mock": "2.1.0",
+    "query-string": "6.2.0",
     "react": "16.6.3",
     "react-dom": "16.6.3",
     "react-redux": "5.1.1",
