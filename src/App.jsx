@@ -11,34 +11,35 @@ import {MovieDetails} from './details/MovieDetails.jsx'
 const Index = () => <h2>Home</h2>;
 
 class App extends React.Component {
- render () {
-   return   <Router>
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/search/">Search</Link>
-          </li>
-          <li>
-            <Link to="/details/">Details</Link>
-          </li>
-        </ul>
-      </nav>
+    render () {
+        return   <Router>
+            <div>
+            <ErrorBoundary>
+                <Label text="netflixroulette" />
 
-      <Route path="/" exact component={Index} />
-      <Route path="/search/" component={MovieSearch} />
-      <Route path="/details/:id" component={MovieDetails} />
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/search/">Search</Link>
+                        </li>
+                        <li>
+                            <Link to="/details/">Details</Link>
+                        </li>
+                    </ul>
+                </nav>
 
-      <ErrorBoundary>
-	 <Label text="netflixroulette" />
-	 <Label text="netflixroulette" />
-      </ErrorBoundary>	
-    </div>
-  </Router>
- }
+                <Route path="/" exact component={Index} />
+                <Route path="/search/" component={MovieSearch} />
+                <Route path="/details/:id" component={MovieDetails} />
+
+                <Label text="netflixroulette" />
+            </ErrorBoundary>	
+            </div>
+        </Router>
+    }
 }
 
 
