@@ -10,8 +10,6 @@ import {Label} from 'Common/Label.jsx'
 import {MovieSearch} from './search/MovieSearch.jsx'
 import {MovieDetails} from './details/MovieDetails.jsx'
 
-const Index = () => <h2>Home</h2>;
-
 class App extends React.Component {
     render () {
         return   <Router>
@@ -33,7 +31,7 @@ class App extends React.Component {
                     </ul>
                 </nav>
 
-                <Route path="/" exact component={Index} />
+                <Route path={paths.ROOT_PATH} exact component={MovieSearch} />
                 <Route path={paths.SEARCH_PATH} component={MovieSearch} />
                 <Route path={paths.DETAILS_PATH} component={MovieDetails} />
 
