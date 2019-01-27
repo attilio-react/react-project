@@ -14,16 +14,13 @@ import {
 
 class MovieDetailsImpl extends React.PureComponent {
   componentWillMount() {
-    const {selectItemCallback, location: {pathname}} = this.props,
-          id = pathname.split(/\//).pop()
+    const {selectItemCallback, match: {params: {id}}} = this.props
     selectItemCallback(id)
   }
 
   componentWillReceiveProps(nextProps) {
-     const {selectItemCallback, location: {pathname}} = this.props,
-          {location: {pathname: newPathname}} = nextProps,
-          id = pathname.split(/\//).pop(),
-          newId = newPathname.split(/\//).pop()
+     const {selectItemCallback, match: {params: {id}}} = this.props,
+          {match: {params: {id: newId}}} = nextProps
 
      if (id !== newId) {
          selectItemCallback(newId)
