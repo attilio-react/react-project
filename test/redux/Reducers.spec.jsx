@@ -1,6 +1,5 @@
 import {consts} from '|common/Consts.jsx'
-import {GOTO_SCREEN,
-        SEARCH_BY, SORT_BY, SEARCH_TERM,
+import {SEARCH_BY, SORT_BY, SEARCH_TERM,
         GET_MOVIES, GET_MOVIE_AND_DETAILS} from '|redux/ActionTypes.jsx'
 
 import {guiReducer, apiReducer} from '|redux/Reducers.jsx';
@@ -23,29 +22,7 @@ describe('GUI reducer', () => {
             })
     })
 
-    it('Should work with GOTO_SCREEN', () => {
-        expect(guiReducer(undefined, {
-            type: GOTO_SCREEN,
-            payload: {
-                screen: consts.DETAILS_SCREEN
-            }
-        })).toEqual(
-            {
-                screen: consts.DETAILS_SCREEN,
-
-                searchBy: consts.SEARCH_BY_TITLE,
-                searchTerm: '',
-                items: [],
-                total: 0,
-                sortBy: consts.SORT_BY_RELEASE_DATE,
-
-                selectedMovie: {},
-                selectedMovieGenres: [],
-                sameGenreMovies: []
-            })
-    })
-
-    it('Should work with SEARCH_BY', () => {
+   it('Should work with SEARCH_BY', () => {
         expect(guiReducer(undefined, {
             type: SEARCH_BY,
             payload: {
