@@ -12,7 +12,8 @@ var config = {
   },
   resolve: {
     alias: {
-      Common: path.resolve(__dirname, 'src/common/')
+      Common: path.resolve(__dirname, 'src/common/'),
+      Redux: path.resolve(__dirname, 'src/redux/')
     }
   },
   module : {

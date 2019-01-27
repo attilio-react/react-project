@@ -22,36 +22,14 @@ import {
     searchBy, sortBy, searchTerm,
     getMoviesRequest, getMovieDetailsAndRelatedRequest} from './redux/ActionCreators.jsx'
 
-
-
 const Index = () => <h2>Home</h2>;
-const About = () => <h2>About</h2>;
-const Users = () => <h2>Users</h2>;
 
 class AppImpl extends React.Component {
-  constructor(props) {
-      super(props)
-      this.state = {
-          screen: consts.SEARCH_SCREEN,
-
-          searchBy: consts.SEARCH_BY_TITLE,
-          searchTerm: '',
-          items: [],
-          total: 0,
-          sortBy: consts.SORT_BY_RELEASE_DATE,
-
-          selectedMovie: null,
-          selectedMovieGenres: [],
-          sameGenreMovies: []
-      }
-  }
-
  render () {
     const {
             screen,
             items, total,
             searchTerm, searchBy, sortBy,
-            selectedMovie, sameGenreMovies, selectedMovieGenres,
             searchTermChangeCallback,
             searchButtonCallback, titleSearchButtonCallback, genreSearchButtonCallback,
             sortByReleaseDateCallback, sortByRatingCallback,
@@ -94,18 +72,7 @@ class AppImpl extends React.Component {
 	 }}>
 	 <MovieSearch />
 	 </SearchContext.Provider>} />
-      <Route path="/details/:id" component={(props) => <DetailsContext.Provider
-	 value={{
-		         searchClickCb: backToSearchButtonCallback,
-			 movie: selectedMovie,
-			 relatedMovies: sameGenreMovies,
-			 relatedGenres: selectedMovieGenres,
-			 itemClickCb: (id) => selectItemCallback(id),
-                         ...props
-	 }}>
-	 <MovieDetails fetchItemDetails={id => selectItemCallback(id)} {...props} />
-	 </DetailsContext.Provider>
-      } />
+      <Route path="/details/:id" component={MovieDetails} />
 
       <ErrorBoundary>
 	 <Label text="netflixroulette" />
@@ -125,9 +92,6 @@ const mapStateToProps = (state, ownProps) => {
                 searchBy: state.guiReducer.searchBy,
                 sortBy: state.guiReducer.sortBy,
                 searchTerm: state.guiReducer.searchTerm,
-                selectedMovie: state.apiReducer.selectedMovie,
-                sameGenreMovies: state.apiReducer.sameGenreMovies,
-                selectedMovieGenres: state.apiReducer.selectedMovieGenres
       }
 }
 
@@ -168,18 +132,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           sortByRatingCallback: (props) => {
               dispatch(sortBy(consts.SORT_BY_RATING))
               doGetMovies(props, dispatch, {sortBy: consts.SORT_BY_RATING})
-          },
-
-          selectItemCallback: (id) => {
-//              dispatch(gotoScreen(consts.DETAIL_SCREEN))
-              dispatch(getMovieDetailsAndRelatedRequest(id))
-          },
-
-          backToSearchButtonCallback: () => {
-              dispatch(gotoScreen(consts.SEARCH_SCREEN))
           }
-
-
       }
 }
 

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {connect} from 'react-redux'
+
 import {DetailsContext} from './DetailsContext.jsx'
 
 import {Button} from 'Common/Button.jsx'
@@ -7,53 +9,79 @@ import {Button} from 'Common/Button.jsx'
 import {MovieData} from './MovieData.jsx'
 import {RelatedMovies} from './RelatedMovies.jsx'
 
-class MovieDetails extends React.PureComponent {
+import {
+    getMoviesRequest, getMovieDetailsAndRelatedRequest} from 'Redux/ActionCreators.jsx'
+
+class MovieDetailsImpl extends React.PureComponent {
   componentWillMount() {
     console.log('componentWillMount')
-    const {fetchItemDetails, location: {pathname}} = this.props,
+    const {selectItemCallback, location: {pathname}} = this.props,
           id = pathname.split(/\//).pop()
 
     console.log('id = ' + id)
-    fetchItemDetails(id)
+    selectItemCallback(id)
   }
-
-
-  componentWillReceiveProps(prevProps) {
-    console.log('componentWillReceiveProps')
-    const {fetchItemDetails, location: {pathname}} = this.props,
-          {location: {pathname: prevPathname}} = prevProps,
-          id = pathname.split(/\//).pop(),
-          prevId = prevPathname.split(/\//).pop()
-
-    console.log('id = ' + id)
-    console.log('prevPathname = ' + prevPathname)
-    console.log('prevId = ' + prevId)
-    
-    if (id === prevId) {
-        console.log('MovieDetails.componentDidUpdate, same id, not doing anything')
-    } else {
-        console.log('MovieDetails.componentDidUpdate, different id, fetching')
-        fetchItemDetails(id)
-    }
-  }
-
 
   render () {
-    return (<DetailsContext.Consumer>
-            {ctx => <>
+   const {
+            selectedMovie, sameGenreMovies, selectedMovieGenres,
+            selectItemCallback, backToSearchButtonCallback
+        } = this.props,
+	self = this
+
+   return (<DetailsContext.Provider
+	 value={{
+			 movie: selectedMovie,
+			 relatedMovies: sameGenreMovies,
+			 relatedGenres: selectedMovieGenres,
+                         itemClickCb: selectItemCallback
+	    }}>
+                <>
                 &nbsp;
                 &nbsp;
-                <Button caption='Search' onClick={ctx.searchClickCb} />
+                <Button caption='Search' onClick={backToSearchButtonCallback} />
                 <MovieData />
                 <RelatedMovies />
                 </>
-            }
-            </DetailsContext.Consumer>)
+            </DetailsContext.Provider>)
   }
 
 }
 
 
-export {MovieDetails}
+const mapStateToProps = (state, ownProps) => {
+      return {
+                selectedMovie: state.apiReducer.selectedMovie,
+                sameGenreMovies: state.apiReducer.sameGenreMovies,
+                selectedMovieGenres: state.apiReducer.selectedMovieGenres
+      }
+}
 
+const mapDispatchToProps = (dispatch, ownProps) => {
+      const doGetMovies = (props, dispatch, override) => {
+          const {searchTerm, searchBy, sortBy} = Object.assign({}, props, override)
+          dispatch(getMoviesRequest({
+              search: searchTerm,
+              searchBy: (searchBy === consts.SEARCH_BY_GENRE ? consts.VALUE_BY_GENRE : consts.VALUE_BY_TITLE),
+              sortBy: (sortBy === consts.SORT_BY_RELEASE_DATE ? consts.VALUE_BY_RELEASE_DATE : consts.VALUE_BY_VOTE_AVERAGE),
+              sortOrder: consts.VALUE_ASC
+          }))
+      }
+      return {
+          selectItemCallback: (id) => {
+              dispatch(getMovieDetailsAndRelatedRequest(id))
+          },
+
+          backToSearchButtonCallback: () => {
+              dispatch(gotoScreen(consts.SEARCH_SCREEN))
+          }
+      }
+}
+
+const MovieDetails = connect(
+      mapStateToProps,
+      mapDispatchToProps
+)(MovieDetailsImpl)
+
+export {MovieDetails}
 

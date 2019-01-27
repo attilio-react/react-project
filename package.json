@@ -48,7 +48,8 @@
   "jest": {
     "moduleNameMapper": {
       "\\|(.*)$": "<rootDir>/src/$1",
-      "^Common/(.*)$": "<rootDir>/src/common/$1"
+      "^Common/(.*)$": "<rootDir>/src/common/$1",
+      "^Redux/(.*)$": "<rootDir>/src/redux/$1"
     },
     "collectCoverage": true,
     "collectCoverageFrom": [
