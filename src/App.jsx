@@ -1,6 +1,8 @@
 import React from 'react';
 
-import {HashRouter as Router, Route, Link} from "react-router-dom";
+import {paths} from 'Common/Paths.jsx'
+
+import {HashRouter as Router, Route, Link} from 'react-router-dom'
 
 import {ErrorBoundary} from './ErrorBoundary.jsx'
 
@@ -23,17 +25,17 @@ class App extends React.Component {
                             <Link to="/">Home</Link>
                         </li>
                         <li>
-                            <Link to="/search/">Search</Link>
+                            <Link to={paths.SEARCH_PATH}>Search</Link>
                         </li>
                         <li>
-                            <Link to="/details/">Details</Link>
+                            <Link to={paths.DETAILS_PATH}>Details</Link>
                         </li>
                     </ul>
                 </nav>
 
                 <Route path="/" exact component={Index} />
-                <Route path="/search/" component={MovieSearch} />
-                <Route path="/details/:id" component={MovieDetails} />
+                <Route path={paths.SEARCH_PATH} component={MovieSearch} />
+                <Route path={paths.DETAILS_PATH} component={MovieDetails} />
 
                 <Label text="netflixroulette" />
             </ErrorBoundary>	

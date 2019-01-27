@@ -2,6 +2,8 @@ import React from 'react';
 
 import {connect} from 'react-redux'
 
+import {paths} from 'Common/Paths.jsx'
+
 import {DetailsContext} from './DetailsContext.jsx'
 
 import {LinkButton} from 'Common/LinkButton.jsx'
@@ -44,7 +46,7 @@ class MovieDetailsImpl extends React.PureComponent {
                 <>
                 &nbsp;
                 &nbsp;
-                <LinkButton caption='Search' to='/search/' />
+                <LinkButton caption='Search' to={paths.SEARCH_PATH} />
                 <MovieData />
                 <RelatedMovies />
                 </>
