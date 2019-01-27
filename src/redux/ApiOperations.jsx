@@ -26,7 +26,7 @@ function getMoviesByGenresImpl(origGenres, genres, excludeId, accum, dispatch, c
         searchParams[consts.PARAM_SEARCH_BY] = consts.VALUE_BY_GENRE
         searchParams[consts.PARAM_SEARCH] = genre
         getMovies(searchParams, NO_DISPATCH, json => {
-            const newMovies = json.data.filter(movie => movie.id !== excludeId),
+            const newMovies = json.data.filter(movie => String(movie.id) !== String(excludeId)),
                 newGenres = genres.slice(1)
             let newAccum = accum.concat(newMovies),
                 newAccumNoDups = newAccum.filter((item, pos) => {
