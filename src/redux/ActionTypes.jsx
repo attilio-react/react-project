@@ -1,5 +1,4 @@
 export const
-    GOTO_SCREEN = 'GOTO_SCREEN',
     SEARCH_TERM = 'SEARCH_TERM',
     SEARCH_BY = 'SEARCH_BY',
     SORT_BY = 'SORT_BY',

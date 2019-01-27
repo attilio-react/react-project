@@ -32,7 +32,7 @@ class MovieDetailsImpl extends React.PureComponent {
   render () {
    const {
             selectedMovie, sameGenreMovies, selectedMovieGenres,
-            selectItemCallback, backToSearchButtonCallback
+            selectItemCallback
         } = this.props,
 	self = this
 
@@ -65,22 +65,9 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-      const doGetMovies = (props, dispatch, override) => {
-          const {searchTerm, searchBy, sortBy} = Object.assign({}, props, override)
-          dispatch(getMoviesRequest({
-              search: searchTerm,
-              searchBy: (searchBy === consts.SEARCH_BY_GENRE ? consts.VALUE_BY_GENRE : consts.VALUE_BY_TITLE),
-              sortBy: (sortBy === consts.SORT_BY_RELEASE_DATE ? consts.VALUE_BY_RELEASE_DATE : consts.VALUE_BY_VOTE_AVERAGE),
-              sortOrder: consts.VALUE_ASC
-          }))
-      }
-      return {
+     return {
           selectItemCallback: (id) => {
               dispatch(getMovieDetailsAndRelatedRequest(id))
-          },
-
-          backToSearchButtonCallback: () => {
-              dispatch(gotoScreen(consts.SEARCH_SCREEN))
           }
       }
 }
