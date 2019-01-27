@@ -27,7 +27,6 @@ const Index = () => <h2>Home</h2>;
 class AppImpl extends React.Component {
  render () {
     const {
-            screen,
             items, total,
             searchTerm, searchBy, sortBy,
             searchTermChangeCallback,
@@ -86,7 +85,6 @@ class AppImpl extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
       return {
-                screen: state.guiReducer.screen,
                 items: state.apiReducer.items,
                 total: state.apiReducer.total,
                 searchBy: state.guiReducer.searchBy,
